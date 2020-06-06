@@ -1,26 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { HashRouter, Route } from 'react-router-dom';
+import Header from "./Components/Header";
+import Footer from "./Components/Footer";
+import Home from "./Components/Home";
+import Info from "./Components/Info";
+import Explore from "./Components/Explore";
+import Counter from "./Components/Counter";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+    return (
+        <HashRouter>
+            <Header />
+            <Counter />
+            <div class="content">
+                <Route exact path="/" component={Home}/>
+                <Route path="/Info" component={Info}/>
+                <Route path="/Explore" component={Explore}/>
+            </div>
+            <Footer />
+        </HashRouter>
+    );
 }
 
 export default App;
