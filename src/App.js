@@ -12,7 +12,7 @@ const App = () => {
         <HashRouter>
             <Header />
             <Counter />
-            <div class="content">
+            <div className="content">
                 <Route exact path="/" component={Home}/>
                 <Route path="/Info" component={Info}/>
                 <Route path="/Explore" component={Explore}/>

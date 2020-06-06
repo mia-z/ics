@@ -1,0 +1,5 @@
+const ADD_TEXT = "ADD_TEXT"; 
+const INC_NUMBER = "INC_NUMBER";
+const DEC_NUMBER = "DEC_NUMBER";
+
+export { ADD_TEXT, INC_NUMBER, DEC_NUMBER };
