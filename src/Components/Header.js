@@ -1,13 +1,10 @@
 import React from 'react';
-import { Link } from "react-router-dom";
-
+import "../styles/header.scss";
 export const Header = () => {
     return(
-        <nav>
-            <Link to="/">Home</Link> &nbsp;
-            <Link to="/Info">Info</Link> &nbsp;
-            <Link to="/Explore">Explore</Link> &nbsp;
-        </nav>
+        <header>
+            Header
+        </header>
     );
 }
 

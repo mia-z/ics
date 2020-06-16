@@ -1,0 +1,15 @@
+div {
+    .card {
+        background-color: whitesmoke;
+        border-radius: 5px;
+        margin: 15px auto;
+        border-top: 7px ridge rgb(74, 74, 182);
+        border-top-left-radius: 3%;
+        border-top-right-radius: 3%;
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    }
+}

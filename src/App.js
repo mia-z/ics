@@ -1,25 +1,114 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { HashRouter, Route } from 'react-router-dom';
 import Header from "./Components/Header";
-import Footer from "./Components/Footer";
 import Home from "./Components/Home";
 import Info from "./Components/Info";
 import Explore from "./Components/Explore";
-import Counter from "./Components/Counter";
+import Navbar from "./Components/Navbar";
+import Banner from "./Components/Banner";
+import Status from "./Components/Status";
+import Mining from "./Components/Mining";
+import { Container, Col, Row } from "react-bootstrap";
+import { connect } from "react-redux";
+import { ExploreLocation , ChangeActivity, ToggleTimer, AssignTimerId, ResetTimer, TickTimer, UpdateActivityTickers } from "./Actions/Actions";
+import useInterval from "./Hooks/useTimeout";
+import { ExploreReward } from "./Rewards/ExploreRewards";
+import "./styles/base.scss";
 
-const App = () => {
+const mapStateToProps = (state) => {
+    return { 
+        globalTicker: state.globalTicker,
+        activityTickers: state.activityTickers
+    }
+}
+
+const mapDispatchToProps = {
+    ChangeActivity,
+    ExploreLocation,
+    ToggleTimer,
+    AssignTimerId,
+    TickTimer,
+    ResetTimer,
+    UpdateActivityTickers
+}
+
+const App = (props) => {
+    useInterval(() => {
+        if (props.activityTickers.length !== 0) {
+            props.TickTimer();
+            let tickActs = props.activityTickers.filter(timer => {
+                if (timer) {
+                    let newActState;
+                    if (timer.tick === timer.resetTick) {
+                        newActState = {...timer, tick: timer.tick = 0}
+                    } else newActState = {...timer, tick: timer.tick += 1 }
+                    return newActState;
+                }
+            }); 
+            props.UpdateActivityTickers(tickActs);
+            console.log("ticking in main");
+            if (props.globalTicker.tick >= 150) {
+                props.ResetTimer();
+                console.log("completed this round of tick", props.activityTickers);
+            }
+        }
+    }, 40);
+
+    const updateBackgroundActivity = (option, passedActivity) => {
+        switch(option) {
+            case "add":
+                let acts = props.activityTickers;
+                acts.push(passedActivity);
+                props.UpdateActivityTickers(acts);
+                return;
+            case "remove":
+                props.UpdateActivityTickers(passedActivity);
+                return;
+            default: return;
+        }
+    };
+
     return (
         <HashRouter>
-            <Header />
-            <Counter />
-            <div className="content">
-                <Route exact path="/" component={Home}/>
-                <Route path="/Info" component={Info}/>
-                <Route path="/Explore" component={Explore}/>
-            </div>
-            <Footer />
+            <Container>
+                <Row className="stretch" noGutters>
+                    <Col md={3} className="left-column"> {/*LEFT COLUMN*/}
+                        <Row id="banner" className="no-gutters">
+                            <Col>
+                                <Banner /> {/*BANNER SECTION*/}
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                 <Status /> {/*STATUS SECTION*/}
+                            </Col>
+                        </Row>
+                        <Row className="h-75">
+                            <Col>
+                                <Route exact path="*" render={(params) => <Navbar routeParams={params}/>}/> {/*NAVBAR COLUMN*/}
+                            </Col>
+                        </Row>
+                    </Col>
+                    <Col md={9} className="right-column"> {/*RIGHT COLUMN*/}
+                        <Row> {/*TOP HEADER ROW*/}
+                            <Col>
+                                <Header /> 
+                            </Col>
+                        </Row>
+                        <Row> {/*CONTENT ROW*/}
+                            <Col>
+                                <Route exact path="/" component={Home} />
+                                <Route path="/Home" component={Home} />
+                                <Route path="/Info" component={Info} />
+                                <Route path="/Mining" render={(params) => <Mining routeParams={params} backgroundActivities={props.activityTickers} updateBackground={updateBackgroundActivity}/>}/>
+                                <Route path="/Explore" render={(params) => <Explore routeParams={params} backgroundActivities={props.activityTickers} updateBackground={updateBackgroundActivity}/>}/>
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
+            </Container>
         </HashRouter>
     );
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);

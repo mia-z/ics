@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { IncrementNumber } from "./../Actions/Increment"
-import { DecrementNumber } from "./../Actions/Decrement"
+import { IncrementNumber, DecrementNumber } from "./../Actions/Actions"
 
 const mapStateToProps = state => { 
     return { count: state.count }
