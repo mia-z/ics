@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
-import { ExploreLocation , ChangeActivity, ToggleTimer, AssignTimerId, ResetTimer, TickTimer } from "./../Actions/Actions";
-import { ExploreReward } from "./../Rewards/ExploreRewards";
+import { TickTimer } from "./../Actions/Actions";
+import { ExploreReward } from "../Rewards";
 import { Col, Row, Container, Button } from "react-bootstrap";
 import { Line } from "rc-progress";
 import "../styles/explore.scss";
@@ -15,20 +15,16 @@ const mapStateToProps = (...state) => {
 }
 
 const mapDispatchToProps = {
-    ChangeActivity,
-    ExploreLocation,
-    ToggleTimer,
-    AssignTimerId,
     TickTimer,
-    ResetTimer
 }
 
 const Explore = (props) => {
+    const [backgroundActivities] = useState(props.backgroundActivities);
     const [ticker, setTicker] = useState(new Timer("null", "None"));
     useInterval(() => {
         if (ticker.isRunning) {
             setTicker({...ticker, tick: ticker.tick += 1});
-            if (ticker.tick >= 120) {
+            if (ticker.tick >= 100) {
                 setTicker({...ticker, tick: 0});
                 ExploreReward(ticker.extra);
             }
@@ -50,13 +46,13 @@ const Explore = (props) => {
     }
 
     useEffect(() => {
-        let updatedActivities = props.backgroundActivities
+        let updatedActivities = backgroundActivities
             .filter(item => {
                 if (item.activity === "Explore") {
                     setTicker(item);
                 } else return item;
         });
-        if (updatedActivities !== props.backgroundActivities)
+        if (updatedActivities !== backgroundActivities)
             props.updateBackground("remove", updatedActivities);
         return () => {
             if (ticker.isRunning) {

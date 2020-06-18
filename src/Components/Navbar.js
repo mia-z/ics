@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import "../styles/nav.scss";
@@ -14,6 +14,7 @@ const mapStateToProps = (...state) => {
 
 export const Navbar = (props) => {
     const [currentWindow, setCurrentWindow] = useState(props.routeParams.match.url);
+
     return(
     <nav>
         <Row className="p-1">

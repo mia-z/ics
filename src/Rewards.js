@@ -1,5 +1,5 @@
-import store from "./../store";
-import { ApplyReward } from "./../Actions/Actions";
+import store from "./store";
+import { ApplyReward } from "./Actions/Actions";
 
 
 export const ExploreReward = (location, modifiers = null) => {

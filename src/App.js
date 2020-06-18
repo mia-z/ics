@@ -12,7 +12,7 @@ import { Container, Col, Row } from "react-bootstrap";
 import { connect } from "react-redux";
 import { ExploreLocation , ChangeActivity, ToggleTimer, AssignTimerId, ResetTimer, TickTimer, UpdateActivityTickers } from "./Actions/Actions";
 import useInterval from "./Hooks/useTimeout";
-import { ExploreReward } from "./Rewards/ExploreRewards";
+import { ExploreReward } from "./Rewards";
 import "./styles/base.scss";
 
 const mapStateToProps = (state) => {
@@ -53,6 +53,8 @@ const App = (props) => {
             }
         }
     }, 40);
+
+    const [isNavigating, setIsNavigating] = useState(false);
 
     const updateBackgroundActivity = (option, passedActivity) => {
         switch(option) {
@@ -100,7 +102,7 @@ const App = (props) => {
                                 <Route exact path="/" component={Home} />
                                 <Route path="/Home" component={Home} />
                                 <Route path="/Info" component={Info} />
-                                <Route path="/Mining" render={(params) => <Mining routeParams={params} backgroundActivities={props.activityTickers} updateBackground={updateBackgroundActivity}/>}/>
+                                <Route path="/Mining" render={(params) => <Mining  routeParams={params} backgroundActivities={props.activityTickers} updateBackground={updateBackgroundActivity}/>}/>
                                 <Route path="/Explore" render={(params) => <Explore routeParams={params} backgroundActivities={props.activityTickers} updateBackground={updateBackgroundActivity}/>}/>
                             </Col>
                         </Row>
