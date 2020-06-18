@@ -1,35 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
-import { TickTimer } from "./../Actions/Actions";
+import { UpdateActivityTickers } from "./../Actions/Actions";
 import { ExploreReward } from "../Rewards";
 import { Col, Row, Container, Button } from "react-bootstrap";
 import { Line } from "rc-progress";
 import "../styles/explore.scss";
-import useInterval from '../Hooks/useTimeout';
 import Timer from "../Objects/Timer";
 
 const mapStateToProps = (...state) => { 
     return { 
-        globalTicker: state[0].globalTicker
+        globalTicker: state[0].globalTicker,
+        activityTickers: state[0].activityTickers
     }
 }
 
 const mapDispatchToProps = {
-    TickTimer,
+    UpdateActivityTickers,
 }
 
 const Explore = (props) => {
-    const [backgroundActivities] = useState(props.backgroundActivities);
-    const [ticker, setTicker] = useState(new Timer("null", "None"));
-    useInterval(() => {
-        if (ticker.isRunning) {
-            setTicker({...ticker, tick: ticker.tick += 1});
-            if (ticker.tick >= 100) {
-                setTicker({...ticker, tick: 0});
-                ExploreReward(ticker.extra);
-            }
+    const [activityTickers] = useState(props.activityTickers);
+    const [ticker, setTicker] = useState(new Timer("Explore", "None"));
+
+    useEffect(() => {
+        console.log(activityTickers);
+        if (activityTickers.some(item => item.activity === "Explore")) {
+            setTicker(activityTickers.find(ticker => ticker.activity === "Explore"));
         }
-    }, 35);
+    }, [activityTickers])
+
+    useEffect(() => {
+        if (ticker.extra === "None") {
+            let updatedActs = props.activityTickers.filter(item => item.activity !== "Explore");
+            props.UpdateActivityTickers(updatedActs);
+        } else {
+            let oldActs = props.activityTickers;
+            oldActs.push(ticker);
+            props.UpdateActivityTickers(oldActs);
+        }
+    }, [ticker])
 
     const HandleExploreClick = (location) => {
         if (ticker.isRunning && ticker.extra === location) {
@@ -44,22 +53,6 @@ const Explore = (props) => {
 
         setTicker({...ticker, activity: "Explore", extra: location, isRunning: true});
     }
-
-    useEffect(() => {
-        let updatedActivities = backgroundActivities
-            .filter(item => {
-                if (item.activity === "Explore") {
-                    setTicker(item);
-                } else return item;
-        });
-        if (updatedActivities !== backgroundActivities)
-            props.updateBackground("remove", updatedActivities);
-        return () => {
-            if (ticker.isRunning) {
-                props.updateBackground("add", ticker);
-            }
-        }
-    }, [ticker]);
 
     return(
         <>

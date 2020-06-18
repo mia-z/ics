@@ -54,22 +54,6 @@ const App = (props) => {
         }
     }, 40);
 
-    const [isNavigating, setIsNavigating] = useState(false);
-
-    const updateBackgroundActivity = (option, passedActivity) => {
-        switch(option) {
-            case "add":
-                let acts = props.activityTickers;
-                acts.push(passedActivity);
-                props.UpdateActivityTickers(acts);
-                return;
-            case "remove":
-                props.UpdateActivityTickers(passedActivity);
-                return;
-            default: return;
-        }
-    };
-
     return (
         <HashRouter>
             <Container>
@@ -102,8 +86,8 @@ const App = (props) => {
                                 <Route exact path="/" component={Home} />
                                 <Route path="/Home" component={Home} />
                                 <Route path="/Info" component={Info} />
-                                <Route path="/Mining" render={(params) => <Mining  routeParams={params} backgroundActivities={props.activityTickers} updateBackground={updateBackgroundActivity}/>}/>
-                                <Route path="/Explore" render={(params) => <Explore routeParams={params} backgroundActivities={props.activityTickers} updateBackground={updateBackgroundActivity}/>}/>
+                                <Route path="/Mining" render={(params) => <Mining routeParams={params} />}/>
+                                <Route path="/Explore" render={(params) => <Explore routeParams={params} />}/>
                             </Col>
                         </Row>
                     </Col>

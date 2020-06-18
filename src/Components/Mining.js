@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "../styles/mining.scss";
 import { connect } from "react-redux";
-import { TickTimer } from "./../Actions/Actions";
+import { UpdateActivityTickers } from "./../Actions/Actions";
 import { Container, Row, Col, ButtonGroup, Button } from "react-bootstrap";
 import { Line } from "rc-progress";
 import { GetImages } from "../ImageRepo";
@@ -10,12 +10,13 @@ import Timer from "../Objects/Timer";
 
 const mapStateToProps = (...state) => { 
     return { 
-        globalTicker: state[0].globalTicker
+        globalTicker: state[0].globalTicker,
+        activityTickers: state.activityTickers
     }
 }
 
 const mapDispatchToProps = {
-    TickTimer,
+    UpdateActivityTickers
 }
 
 export const Mining = (props) => {
