@@ -30,6 +30,15 @@ export const Mining = (props) => {
     const [silverTicker, setSilverTicker] = useState(new Timer("Mining", "Silver"));
     const [goldTicker, setGoldTicker] = useState(new Timer("Mining", "Gold"));
 
+    const [ores, setOres] = useState([
+        {...coalTicker},
+        {...copperTicker},
+        {...tinTicker},
+        {...ironTicker},
+        {...silverTicker},
+        {...goldTicker}
+    ]);
+
     const [availableWorkers, setAvailableWorkers] = useState(5);
 
     useEffect(() => {
@@ -44,7 +53,7 @@ export const Mining = (props) => {
                         case "Iron": setIronTicker({...ticker}); break;
                         case "Silver": setSilverTicker({...ticker}); break;
                         case "Gold": setGoldTicker({...ticker}); break;
-                        default: console.log("This item isnt a mining anything"); return;
+                        default: console.log("This item isnt a mining item"); return;
                     }
                 }
             });
@@ -53,73 +62,85 @@ export const Mining = (props) => {
 
     useEffect(() => {
         if (coalTicker.activeWorkers < 1) {
-            let updatedActs = activityTickers.filter(item => item.extra !== "Coal");
+            let updatedActs = props.activityTickers.filter(item => item.extra !== "Coal");
             props.UpdateActivityTickers(updatedActs);
         } else { 
-            let oldActs = activityTickers.filter(item => item.extra !== "Coal");
+            let oldActs = props.activityTickers.filter(item => item.extra !== "Coal");
             props.UpdateActivityTickers([...oldActs, coalTicker]);
         }
     }, [coalTicker]);
 
     useEffect(() => {
         if (copperTicker.activeWorkers < 1) {
-            let updatedActs = activityTickers.filter(item => item.extra !== "Copper");
+            let updatedActs = props.activityTickers.filter(item => item.extra !== "Copper");
             props.UpdateActivityTickers(updatedActs);
         } else {
-            let oldActs = activityTickers.filter(item => item.extra !== "Copper");
+            let oldActs = props.activityTickers.filter(item => item.extra !== "Copper");
             props.UpdateActivityTickers([...oldActs, copperTicker]);
         }
     }, [copperTicker]);
 
     useEffect(() => {
         if (tinTicker.activeWorkers < 1) {
-            let updatedActs = activityTickers.filter(item => item.extra !== "Tin");
+            let updatedActs = props.activityTickers.filter(item => item.extra !== "Tin");
             props.UpdateActivityTickers(updatedActs);
         } else {
-            let oldActs = activityTickers.filter(item => item.extra !== "Tin");
+            let oldActs = props.activityTickers.filter(item => item.extra !== "Tin");
             props.UpdateActivityTickers([...oldActs, tinTicker]);
         }
     }, [tinTicker]);
 
     useEffect(() => {
         if (ironTicker.activeWorkers < 1) {
-            let updatedActs = activityTickers.filter(item => item.extra !== "Iron");
+            let updatedActs = props.activityTickers.filter(item => item.extra !== "Iron");
             props.UpdateActivityTickers(updatedActs);
         } else {
-            let oldActs = activityTickers.filter(item => item.extra !== "Iron");
+            let oldActs = props.activityTickers.filter(item => item.extra !== "Iron");
             props.UpdateActivityTickers([...oldActs, ironTicker]);
         }
     }, [ironTicker]);
 
     useEffect(() => {
         if (silverTicker.activeWorkers < 1) {
-            let updatedActs = activityTickers.filter(item => item.extra !== "Silver");
+            let updatedActs = props.activityTickers.filter(item => item.extra !== "Silver");
             props.UpdateActivityTickers(updatedActs);
         } else {
-            let oldActs = activityTickers.filter(item => item.extra !== "Silver");
+            let oldActs = props.activityTickers.filter(item => item.extra !== "Silver");
             props.UpdateActivityTickers([...oldActs, silverTicker]);
         }
     }, [silverTicker]);
 
     useEffect(() => {
         if (goldTicker.activeWorkers < 1) {
-            let updatedActs = activityTickers.filter(item => item.extra !== "Gold");
+            let updatedActs = props.activityTickers.filter(item => item.extra !== "Gold");
             props.UpdateActivityTickers(updatedActs);
         } else {
-            let oldActs = activityTickers.filter(item => item.extra !== "Gold");
+            let oldActs = props.activityTickers.filter(item => item.extra !== "Gold");
             props.UpdateActivityTickers([...oldActs, goldTicker]);
         }
     }, [goldTicker]);
 
+    useEffect(() => {
+        setOres([
+            {...coalTicker},
+            {...copperTicker},
+            {...tinTicker},
+            {...ironTicker},
+            {...silverTicker},
+            {...goldTicker}
+        ]);
+        console.log(coalTicker);
+    }, [coalTicker, copperTicker, tinTicker, ironTicker, silverTicker, goldTicker, props.activityTickers])
+
     const HandleMinusClick = (ore) => {
         setAvailableWorkers(availableWorkers + 1);
         switch(ore) {
-            case "Coal": setCoalTicker({...coalTicker, activeWorkers: coalTicker.activeWorkers -= 1}); return;
-            case "Copper": setCopperTicker({...copperTicker, activeWorkers: copperTicker.activeWorkers -= 1}); return;
-            case "Tin": setTinTicker({...tinTicker, activeWorkers: tinTicker.activeWorkers -= 1}); return;
-            case "Iron": setIronTicker({...ironTicker, activeWorkers: ironTicker.activeWorkers -= 1}); return;
-            case "Silver": setSilverTicker({...silverTicker, activeWorkers: silverTicker.activeWorkers -= 1}); return;
-            case "Gold": setGoldTicker({...goldTicker, activeWorkers: goldTicker.activeWorkers -= 1}); return;
+            case "Coal": return setCoalTicker({...coalTicker, activeWorkers: coalTicker.activeWorkers -= 1});
+            case "Copper": return setCopperTicker({...copperTicker, activeWorkers: copperTicker.activeWorkers -= 1});
+            case "Tin": return setTinTicker({...tinTicker, activeWorkers: tinTicker.activeWorkers -= 1});
+            case "Iron": return setIronTicker({...ironTicker, activeWorkers: ironTicker.activeWorkers -= 1});
+            case "Silver": return setSilverTicker({...silverTicker, activeWorkers: silverTicker.activeWorkers -= 1});
+            case "Gold": return setGoldTicker({...goldTicker, activeWorkers: goldTicker.activeWorkers -= 1});
             default: console.log("THIS SHOULDNT HAPPEN REEEE"); return null;
         }
     }
@@ -127,18 +148,14 @@ export const Mining = (props) => {
     const HandlePlusClick = (ore) => {
         setAvailableWorkers(availableWorkers - 1);
         switch(ore) {
-            case "Coal": setCoalTicker({...coalTicker, activeWorkers: coalTicker.activeWorkers += 1}); return;
-            case "Copper": setCopperTicker({...copperTicker, activeWorkers: copperTicker.activeWorkers += 1}); return;
-            case "Tin": setTinTicker({...tinTicker, activeWorkers: tinTicker.activeWorkers += 1}); return; 
-            case "Iron": setIronTicker({...ironTicker, activeWorkers: ironTicker.activeWorkers += 1}); return;
-            case "Silver": setSilverTicker({...silverTicker, activeWorkers: silverTicker.activeWorkers += 1}); return;
-            case "Gold": setGoldTicker({...goldTicker, activeWorkers: goldTicker.activeWorkers += 1}); return;
+            case "Coal": return setCoalTicker({...coalTicker, activeWorkers: coalTicker.activeWorkers += 1});
+            case "Copper": return setCopperTicker({...copperTicker, activeWorkers: copperTicker.activeWorkers += 1});
+            case "Tin": return setTinTicker({...tinTicker, activeWorkers: tinTicker.activeWorkers += 1});
+            case "Iron": return setIronTicker({...ironTicker, activeWorkers: ironTicker.activeWorkers += 1});
+            case "Silver": return setSilverTicker({...silverTicker, activeWorkers: silverTicker.activeWorkers += 1});
+            case "Gold": return setGoldTicker({...goldTicker, activeWorkers: goldTicker.activeWorkers += 1});
             default: console.log("THIS SHOULDNT HAPPEN REEEE"); return null;
         }
-    }
-
-    const GetOreInfo = (ore) => {
-
     }
 
     return(
@@ -169,6 +186,11 @@ export const Mining = (props) => {
                             </Col>
                             <Col md={12}>
                                 <p>Current workers: {ores.find(x => x.extra === ore.ImageName).activeWorkers}</p>
+                            </Col>
+                            <Col md={10}>
+                                <div style={{height: "30px"}}>
+                                    <Line percent={ores.find(x => x.extra === ore.ImageName).tick} strokeWidth="2" strokeColor="brown"/>
+                                </div>
                             </Col>
                         </Row>
                     </div>
