@@ -5,87 +5,149 @@ import { UpdateActivityTickers } from "./../Actions/Actions";
 import { Container, Row, Col, ButtonGroup, Button } from "react-bootstrap";
 import { Line } from "rc-progress";
 import { GetImages } from "../ImageRepo";
-import useInterval from '../Hooks/useTimeout';
 import Timer from "../Objects/Timer";
 
 const mapStateToProps = (...state) => { 
     return { 
         globalTicker: state[0].globalTicker,
-        activityTickers: state.activityTickers
+        activityTickers: state[0].activityTickers
     }
 }
 
 const mapDispatchToProps = {
-    UpdateActivityTickers
+    UpdateActivityTickers,
 }
 
 export const Mining = (props) => {
     const images = GetImages(OreTypes);
 
-    const initialTimers = {
-        "Coal": { name: "Coal", activeWorkers: 0, tick: 0 },
-        "Copper": { name: "Copper", activeWorkers: 0, tick: 0 },
-        "Tin": { name: "Tin", activeWorkers: 0, tick: 0 },
-        "Iron": { name: "Iron", activeWorkers: 0, tick: 0 },
-        "Silver": { name: "Silver", activeWorkers: 0, tick: 0 },
-        "Gold": { name: "Gold", activeWorkers: 0, tick: 0 },
-    }
+    const [activityTickers] = useState(props.activityTickers);
 
-    const [timers, setTimers] = useState(initialTimers);
+    const [coalTicker, setCoalTicker] = useState(new Timer("Mining", "Coal"));
+    const [copperTicker, setCopperTicker] = useState(new Timer("Mining", "Copper"));
+    const [tinTicker, setTinTicker] = useState(new Timer("Mining", "Tin"));
+    const [ironTicker, setIronTicker] = useState(new Timer("Mining", "Iron"));
+    const [silverTicker, setSilverTicker] = useState(new Timer("Mining", "Silver"));
+    const [goldTicker, setGoldTicker] = useState(new Timer("Mining", "Gold"));
+
     const [availableWorkers, setAvailableWorkers] = useState(5);
-    const [backgroundActivities] = useState(props.backgroundActivities);
-    useInterval(() => {
-        if (Object.values(timers).some(item => {
-                if (item.activeWorkers > 0) {
-                    //console.log(`${item.name} has ${item.activeWorkers}`);
-                    HandleTick(item.name);
+
+    useEffect(() => {
+        if (activityTickers.some(item => item.activity === "Mining")) {
+            console.log(activityTickers);
+            activityTickers.forEach(ticker => {
+                if (ticker.activeWorkers > 0) {
+                    switch(ticker.extra) {
+                        case "Coal": setCoalTicker({...ticker}); break;
+                        case "Copper": setCopperTicker({...ticker}); break;
+                        case "Tin": setTinTicker({...ticker}); break;
+                        case "Iron": setIronTicker({...ticker}); break;
+                        case "Silver": setSilverTicker({...ticker}); break;
+                        case "Gold": setGoldTicker({...ticker}); break;
+                        default: console.log("This item isnt a mining item"); break;
+                    }
                 }
-        }));
-    }, 40)
+            });
+        }
+    }, [activityTickers])
+
+    useEffect(() => {
+        if (coalTicker.activeWorkers < 1) {
+            let updatedActs = props.activityTickers.filter(item => item.extra !== "Coal");
+            props.UpdateActivityTickers(updatedActs);
+        } else { 
+            let oldActs = props.activityTickers.filter(item => item.extra !== "Coal");
+            props.UpdateActivityTickers([...oldActs, coalTicker]);
+        }
+    }, [coalTicker]);
+
+    useEffect(() => {
+        if (copperTicker.activeWorkers < 1) {
+            let updatedActs = props.activityTickers.filter(item => item.extra !== "Copper");
+            props.UpdateActivityTickers(updatedActs);
+        } else {
+            let oldActs = props.activityTickers.filter(item => item.extra !== "Copper");
+            props.UpdateActivityTickers([...oldActs, copperTicker]);
+        }
+    }, [copperTicker]);
+
+    useEffect(() => {
+        if (tinTicker.activeWorkers < 1) {
+            let updatedActs = props.activityTickers.filter(item => item.extra !== "Tin");
+            props.UpdateActivityTickers(updatedActs);
+        } else {
+            let oldActs = props.activityTickers.filter(item => item.extra !== "Tin");
+            props.UpdateActivityTickers([...oldActs, tinTicker]);
+        }
+    }, [tinTicker]);
+
+    useEffect(() => {
+        if (ironTicker.activeWorkers < 1) {
+            let updatedActs = props.activityTickers.filter(item => item.extra !== "Iron");
+            props.UpdateActivityTickers(updatedActs);
+        } else {
+            let oldActs = props.activityTickers.filter(item => item.extra !== "Iron");
+            props.UpdateActivityTickers([...oldActs, ironTicker]);
+        }
+    }, [ironTicker]);
+
+    useEffect(() => {
+        if (silverTicker.activeWorkers < 1) {
+            let updatedActs = props.activityTickers.filter(item => item.extra !== "Silver");
+            props.UpdateActivityTickers(updatedActs);
+        } else {
+            let oldActs = props.activityTickers.filter(item => item.extra !== "Silver");
+            props.UpdateActivityTickers([...oldActs, silverTicker]);
+        }
+    }, [silverTicker]);
+
+    useEffect(() => {
+        if (goldTicker.activeWorkers < 1) {
+            let updatedActs = props.activityTickers.filter(item => item.extra !== "Gold");
+            props.UpdateActivityTickers(updatedActs);
+        } else {
+            let oldActs = props.activityTickers.filter(item => item.extra !== "Gold");
+            props.UpdateActivityTickers([...oldActs, goldTicker]);
+        }
+    }, [goldTicker]);
 
     const HandleMinusClick = (ore) => {
-        setAvailableWorkers(availableWorkers + 1); 
-        setTimers({...timers, 
-            [ore]: {...timers[ore], activeWorkers: timers[ore].activeWorkers -= 1 }});
+        setAvailableWorkers(availableWorkers + 1);
+        switch(ore) {
+            case "Coal": return setCoalTicker({...coalTicker, activeWorkers: coalTicker.activeWorkers -= 1});
+            case "Copper": return setCopperTicker({...copperTicker, activeWorkers: copperTicker.activeWorkers -= 1});
+            case "Tin": return setTinTicker({...tinTicker, activeWorkers: tinTicker.activeWorkers -= 1});
+            case "Iron": return setIronTicker({...ironTicker, activeWorkers: ironTicker.activeWorkers -= 1});
+            case "Silver": return setSilverTicker({...silverTicker, activeWorkers: silverTicker.activeWorkers -= 1});
+            case "Gold": return setGoldTicker({...goldTicker, activeWorkers: goldTicker.activeWorkers -= 1});
+            default: console.log("THIS SHOULDNT HAPPEN REEEE"); return null;
+        }
     }
 
     const HandlePlusClick = (ore) => {
-        setAvailableWorkers(availableWorkers - 1); 
-        setTimers({...timers, 
-            [ore]: {...timers[ore], activeWorkers: timers[ore].activeWorkers += 1 }});
-    }
-
-    const HandleTick = (tickerName) => {
-        if (timers[tickerName].tick + 1 > 100)
-            setTimers({...timers, [tickerName]: { ...timers[tickerName], tick: timers[tickerName].tick = 0}});
-        else
-            setTimers({...timers, [tickerName]: { ...timers[tickerName], tick: timers[tickerName].tick += 1}});
-    }
-
-    useEffect(() => {
-        console.log("mounted", backgroundActivities);
-        let updatedActivities = backgroundActivities
-            .filter(item => {
-                if (item.activity === "Mining") {
-                    setTimers({...timers, [item.extra]: { ...timers[item.extra], tick: timers[item.extra].tick = 0}});
-                    console.log(`added ${item.extra} from background, starting at tick ${item.tick}`);
-                } else return item;
-        });
-        if (updatedActivities !== backgroundActivities)
-            props.updateBackground("remove", updatedActivities);
-        return () => {
-            console.log("unmounted", backgroundActivities);
-            if (Object.values(timers).some(item => {
-                if (item.activeWorkers > 0) {
-                    let timerToAdd = new Timer("Mining", item.name);
-                    timerToAdd.activeWorkers = item.activeWorkers;
-                    timerToAdd.tick = item.tick;
-                    props.updateBackground("add", timerToAdd);
-                    console.log(`added ${timerToAdd} to background`);
-                }
-            }));
+        setAvailableWorkers(availableWorkers - 1);
+        switch(ore) {
+            case "Coal": return setCoalTicker({...coalTicker, activeWorkers: coalTicker.activeWorkers += 1});
+            case "Copper": return setCopperTicker({...copperTicker, activeWorkers: copperTicker.activeWorkers += 1});
+            case "Tin": return setTinTicker({...tinTicker, activeWorkers: tinTicker.activeWorkers += 1});
+            case "Iron": return setIronTicker({...ironTicker, activeWorkers: ironTicker.activeWorkers += 1});
+            case "Silver": return setSilverTicker({...silverTicker, activeWorkers: silverTicker.activeWorkers += 1});
+            case "Gold": return setGoldTicker({...goldTicker, activeWorkers: goldTicker.activeWorkers += 1});
+            default: console.log("THIS SHOULDNT HAPPEN REEEE"); return null;
         }
-    }, [timers]);
+    }
+
+    const GetOreInfo = (ore) => {
+        switch(ore) {
+            case "Coal": return coalTicker;
+            case "Copper": return copperTicker;
+            case "Tin": return tinTicker;
+            case "Iron": return ironTicker;
+            case "Silver": return silverTicker;
+            case "Gold": return goldTicker;
+            default: console.log("THIS SHOULDNT HAPPEN REEEE"); return null;
+        }
+    }
 
     return(
         <Container fluid>
@@ -109,16 +171,16 @@ export const Mining = (props) => {
                             </Col>
                             <Col md={12}>
                                 <ButtonGroup className="w-100 px-2 pb-2">
-                                    <Button disabled={availableWorkers < 1 && timers[ore.ImageName].activeWorkers > 1 ? "" : true ? availableWorkers < 1 ? true : timers[ore.ImageName].activeWorkers < 1 ? true : "" : "" } onClick={() => HandleMinusClick(ore.ImageName)}>Remove</Button>
+                                    <Button disabled={availableWorkers < 1 && GetOreInfo(ore.ImageName).activeWorkers > 1 ? "" : true ? availableWorkers < 1 ? true : GetOreInfo(ore.ImageName).activeWorkers < 1 ? true : "" : "" } onClick={() => HandleMinusClick(ore.ImageName)}>Remove</Button>
                                     <Button disabled={availableWorkers < 1 ? true : "" } onClick={() => HandlePlusClick(ore.ImageName)}>Add</Button>
                                 </ButtonGroup>
                             </Col>
                             <Col md={12}>
-                                <p>Current workers: {timers[ore.ImageName].activeWorkers}</p>
+                                <p>Current workers: {GetOreInfo(ore.ImageName).activeWorkers}</p>
                             </Col>
                             <Col md={10}>
                                 <div style={{height: "30px"}}>
-                                    <Line percent={timers[ore.ImageName].tick} strokeWidth="2" strokeColor="brown"/>
+                                    <Line percent={GetOreInfo(ore.ImageName).tick} strokeWidth="2" strokeColor="brown"/>
                                 </div>
                             </Col>
                         </Row>

@@ -34,6 +34,7 @@ const mapDispatchToProps = {
 
 const App = (props) => {
     useInterval(() => {
+        console.log(props.activityTickers);
         if (props.activityTickers.length !== 0) {
             props.TickTimer();
             let tickActs = props.activityTickers.filter(timer => {
@@ -47,7 +48,7 @@ const App = (props) => {
             }); 
             props.UpdateActivityTickers(tickActs);
             console.log("ticking in main");
-            if (props.globalTicker.tick >= 150) {
+            if (props.globalTicker.tick >= 200) {
                 props.ResetTimer();
                 console.log("completed this round of tick", props.activityTickers);
             }

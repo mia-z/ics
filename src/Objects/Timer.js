@@ -6,5 +6,6 @@ export default class Timer {
         this.isRunning = false;
         this.id = -1;
         this.resetTick = 120;
+        this.activeWorkers = 0;
     }
 }
