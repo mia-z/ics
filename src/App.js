@@ -53,7 +53,7 @@ const App = (props) => {
                 console.log("completed this round of tick", props.activityTickers);
             }
         }
-    }, 40);
+    }, 400);
 
     return (
         <HashRouter>

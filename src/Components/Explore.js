@@ -31,7 +31,7 @@ const Explore = (props) => {
 
     useEffect(() => {
         if (ticker.extra === "None") {
-            let updatedActs = props.activityTickers.filter(item => item.activity !== "Explore");
+            let updatedActs = activityTickers.filter(item => item.activity !== "Explore");
             props.UpdateActivityTickers(updatedActs);
         } else {
             let oldActs = props.activityTickers;
