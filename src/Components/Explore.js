@@ -34,9 +34,8 @@ const Explore = (props) => {
             let updatedActs = activityTickers.filter(item => item.activity !== "Explore");
             props.UpdateActivityTickers(updatedActs);
         } else {
-            let oldActs = props.activityTickers;
-            oldActs.push(ticker);
-            props.UpdateActivityTickers(oldActs);
+            let updatedActs = activityTickers.filter(item => item.activity !== "Explore");
+            props.UpdateActivityTickers([...updatedActs, ticker]);
         }
     }, [ticker])
 
