@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
 import { UpdateActivityTickers } from "./../Actions/Actions";
+import { ExploreReward } from "../Rewards";
 import { Col, Row, Container, Button } from "react-bootstrap";
-import { ProgressBar } from "./StyleComponents/ProgressBar";
+import { Line } from "rc-progress";
 import "../styles/explore.scss";
 import Timer from "../Objects/Timer";
 
@@ -39,17 +40,17 @@ const Explore = (props) => {
     }, [ticker])
 
     const HandleExploreClick = (location) => {
-        if (ticker.isRunning && ticker.extra === location) 
-            return setTicker(new Timer("Explore", "None"));
-        
-        if (ticker.extra !== location) {
-            switch(location) {
-                case "Villages": return setTicker(new Timer("Explore", location, 100, true));
-                case "Farmlands": return setTicker(new Timer("Explore", location, 200, true));
-                case "Forest": return setTicker(new Timer("Explore", location, 350, true));
-                case "Desert": return setTicker(new Timer("Explore", location, 600, true));
-            }
+        if (ticker.isRunning && ticker.extra === location) {
+            setTicker({...ticker, tick: 0, isRunning: false, extra: "None"});
+            return;
         }
+        
+        if (ticker.isRunning && ticker.extra !== location) {
+            setTicker({...ticker, tick: 0, extra: location});
+            return;
+        }
+
+        setTicker({...ticker, activity: "Explore", extra: location, isRunning: true});
     }
 
     return(
@@ -74,7 +75,7 @@ const Explore = (props) => {
             <div className="progress-container">
                 <h5>Exploring...</h5>
                 <div className="px-3">
-                    <ProgressBar total={ticker.resetTick} value={ticker.tick} bgColor="red" />
+                    <Line percent={ticker.tick} strokeWidth="2" strokeColor={ticker.tick >= 100 ? "green" : "red"}/>
                 </div>
                 {/* <Button variant="primary" onClick={() => StopExplore()}>Stop</Button> */}
             </div>
