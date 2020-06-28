@@ -1,70 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
-import { TickTimer } from "./../Actions/Actions";
-import { ExploreReward } from "../Rewards";
+import { UpdateActivityTickers } from "./../Actions/Actions";
 import { Col, Row, Container, Button } from "react-bootstrap";
 import { Line } from "rc-progress";
 import "../styles/explore.scss";
-import useInterval from '../Hooks/useTimeout';
 import Timer from "../Objects/Timer";
 
-const mapStateToProps = (...state) => { 
+const mapStateToProps = (state) => { 
     return { 
-        globalTicker: state[0].globalTicker
+        globalTicker: state.globalTicker,
+        activityTickers: state.activityTickers,
+        exploreTicker: state.activityTickers.some(x => x.activity === "Explore") ? state.activityTickers.find(x => x.activity === "Explore") : new Timer("Explore", "None")
     }
 }
 
 const mapDispatchToProps = {
-    TickTimer,
+    UpdateActivityTickers
 }
 
 const Explore = (props) => {
-    const [backgroundActivities] = useState(props.backgroundActivities);
-    const [ticker, setTicker] = useState(new Timer("null", "None"));
-    useInterval(() => {
-        if (ticker.isRunning) {
-            setTicker({...ticker, tick: ticker.tick += 1});
-            if (ticker.tick >= 100) {
-                setTicker({...ticker, tick: 0});
-                ExploreReward(ticker.extra);
-            }
-        }
-    }, 35);
 
     const HandleExploreClick = (location) => {
-        if (ticker.isRunning && ticker.extra === location) {
-            setTicker({...ticker, tick: 0, isRunning: false, extra: "None"});
-            return;
-        }
-        
-        if (ticker.isRunning && ticker.extra !== location) {
-            setTicker({...ticker, tick: 0, extra: location});
-            return;
-        }
-
-        setTicker({...ticker, activity: "Explore", extra: location, isRunning: true});
-    }
-
-    useEffect(() => {
-        let updatedActivities = backgroundActivities
-            .filter(item => {
-                if (item.activity === "Explore") {
-                    setTicker(item);
-                } else return item;
-        });
-        if (updatedActivities !== backgroundActivities)
-            props.updateBackground("remove", updatedActivities);
-        return () => {
-            if (ticker.isRunning) {
-                props.updateBackground("add", ticker);
+        if (props.exploreTicker.extra === location)
+            return props.UpdateActivityTickers([...props.activityTickers.filter(t => t.activity !== "Explore")]);
+                    
+        if (props.exploreTicker.extra !== location || props.exploreTicker.extra !== "None") {
+            let updatedState = props.activityTickers.filter(t => t.activity !== "Explore");
+            switch(location) {
+                case "Villages": return props.UpdateActivityTickers([...updatedState, new Timer("Explore", location, 100, true)]);
+                case "Farmlands": return props.UpdateActivityTickers([...updatedState, new Timer("Explore", location, 200, true)]);
+                case "Forest": return props.UpdateActivityTickers([...updatedState, new Timer("Explore", location, 350, true)]);
+                case "Desert": return props.UpdateActivityTickers([...updatedState, new Timer("Explore", location, 600, true)]);
             }
         }
-    }, [ticker]);
+    }
+
+    const percent = () => (props.exploreTicker.tick / props.exploreTicker.resetTick) * 100;
 
     return(
         <>
         <h3>Explore new areas</h3>
-        <h4>Currently exploring: {ticker.extra}</h4>
+        <h4>Currently exploring: {props.exploreTicker.extra}</h4>
         <Container>
             <Row>
             {
@@ -72,18 +48,18 @@ const Explore = (props) => {
                     <Col key={key} md={4} className="px-3 py-1">
                         <Button 
                             block 
-                            variant={ticker.extra === location ? "success" : "primary"}
+                            variant={props.exploreTicker.extra === location ? "success" : "primary"}
                             onClick={() => HandleExploreClick(location)}
                         >{location}</Button>
                     </Col>
                 ))
             }
             </Row>
-            { ticker.isRunning &&
+            { props.exploreTicker.isRunning &&
             <div className="progress-container">
                 <h5>Exploring...</h5>
                 <div className="px-3">
-                    <Line percent={ticker.tick} strokeWidth="2" strokeColor={ticker.tick >= 100 ? "green" : "red"}/>
+                    <Line percent={percent()} strokeWidth="2" strokeColor="#333" />
                 </div>
                 {/* <Button variant="primary" onClick={() => StopExplore()}>Stop</Button> */}
             </div>

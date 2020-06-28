@@ -12,7 +12,7 @@ import { Container, Col, Row } from "react-bootstrap";
 import { connect } from "react-redux";
 import { ExploreLocation , ChangeActivity, ToggleTimer, AssignTimerId, ResetTimer, TickTimer, UpdateActivityTickers } from "./Actions/Actions";
 import useInterval from "./Hooks/useTimeout";
-import { ExploreReward } from "./Rewards";
+import { RewardBroker } from "./RewardBroker";
 import "./styles/base.scss";
 
 const mapStateToProps = (state) => {
@@ -33,43 +33,6 @@ const mapDispatchToProps = {
 }
 
 const App = (props) => {
-    useInterval(() => {
-        if (props.activityTickers.length !== 0) {
-            props.TickTimer();
-            let tickActs = props.activityTickers.filter(timer => {
-                if (timer) {
-                    let newActState;
-                    if (timer.tick === timer.resetTick) {
-                        newActState = {...timer, tick: timer.tick = 0}
-                    } else newActState = {...timer, tick: timer.tick += 1 }
-                    return newActState;
-                }
-            }); 
-            props.UpdateActivityTickers(tickActs);
-            console.log("ticking in main");
-            if (props.globalTicker.tick >= 150) {
-                props.ResetTimer();
-                console.log("completed this round of tick", props.activityTickers);
-            }
-        }
-    }, 40);
-
-    const [isNavigating, setIsNavigating] = useState(false);
-
-    const updateBackgroundActivity = (option, passedActivity) => {
-        switch(option) {
-            case "add":
-                let acts = props.activityTickers;
-                acts.push(passedActivity);
-                props.UpdateActivityTickers(acts);
-                return;
-            case "remove":
-                props.UpdateActivityTickers(passedActivity);
-                return;
-            default: return;
-        }
-    };
-
     return (
         <HashRouter>
             <Container>
@@ -102,8 +65,8 @@ const App = (props) => {
                                 <Route exact path="/" component={Home} />
                                 <Route path="/Home" component={Home} />
                                 <Route path="/Info" component={Info} />
-                                <Route path="/Mining" render={(params) => <Mining  routeParams={params} backgroundActivities={props.activityTickers} updateBackground={updateBackgroundActivity}/>}/>
-                                <Route path="/Explore" render={(params) => <Explore routeParams={params} backgroundActivities={props.activityTickers} updateBackground={updateBackgroundActivity}/>}/>
+                                <Route path="/Mining" render={(params) => <Mining routeParams={params} />}/>
+                                <Route path="/Explore" render={(params) => <Explore routeParams={params} />}/>
                             </Col>
                         </Row>
                     </Col>

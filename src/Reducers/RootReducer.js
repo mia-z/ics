@@ -6,7 +6,7 @@ const initalState = {
     globalTicker: new Timer("global"),
     activityTickers: [],
     exploreStats: {
-        villages: 0, farmlands: 0, forest: 0, desert: 0
+        Villages: 0, Farmlands: 0, Forest: 0, Desert: 0
     },
     user: new User()
 
@@ -42,27 +42,32 @@ const RootReducer = (state = initalState, action) => {
             activityTickers: action.payload}
     }
 
+    if (action.type === types.UPDATE_WORKERS) {
+        return {...state, 
+            user: {...state.user, workers: action.payload}
+        }
+    }
+
     if (action.type === types.APPLY_REWARD) {
         switch(action.payload.activity)
         {
             case "Explore": 
                 return ExploreRewardState(state, action.payload);
-            default: 
-                return { ...state, currentActivity: "Idle" };
+            case "Mining": 
+                return MiningRewardState(state, action.payload);
+            default: throw "Tried to apply a reward that went wrong!";
         }
     }
     return state;
 };
 
 const ExploreRewardState = (state, payload) => {
-    switch(payload.location)
-    {
-        case "Villages": return { ...state, exploreStats: { ...state.exploreStats, villages: state.exploreStats.villages += 1} };
-        case "Farmlands": return { ...state, exploreStats: { ...state.exploreStats, farmlands: state.exploreStats.farmlands += 1} };
-        case "Forest": return { ...state, exploreStats: { ...state.exploreStats, forest: state.exploreStats.forest += 1} };
-        case "Desert": return { ...state, exploreStats: { ...state.exploreStats, desert: state.exploreStats.desert += 1} };
-        default: console.log("this shouldnt happen"); return {...state};
-    }
+    return { ...state, exploreStats: { ...state.exploreStats, [payload.modifiers.extra]: state.exploreStats[payload.modifiers.extra] += 1} };
+}
+
+const MiningRewardState = (state, payload) => {
+    state.user.AddOre(payload.modifiers.extra, payload.modifiers.activeWorkers);
+    return {...state, user: {...state.user } };
 }
 
 export default RootReducer;
