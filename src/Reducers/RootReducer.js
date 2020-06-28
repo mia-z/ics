@@ -43,6 +43,8 @@ const RootReducer = (state = initalState, action) => {
                 return ExploreRewardState(state, action.payload);
             case "Mining": 
                 return MiningRewardState(state, action.payload);
+            case "Woodcutting":
+                return WoodcuttingRewardState(state, action.payload);
             default: return console.log("@@ERROR AT APPLY_REWARD ACTION IN ROOTREDUCER: action.payload.activity IS INCORRECT");
         }
     }
@@ -55,6 +57,11 @@ const ExploreRewardState = (state, payload) => {
 
 const MiningRewardState = (state, payload) => {
     state.user.AddOre(payload.modifiers.extra, payload.modifiers.activeWorkers);
+    return {...state, user: {...state.user } };
+}
+
+const WoodcuttingRewardState = (state, payload) => {
+    state.user.AddWood(payload.modifiers.extra, payload.modifiers.activeWorkers);
     return {...state, user: {...state.user } };
 }
 

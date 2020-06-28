@@ -8,6 +8,8 @@ import Navbar from "./Components/Navbar";
 import Banner from "./Components/Banner";
 import Status from "./Components/Status";
 import Mining from "./Components/Mining";
+import Housing from "./Components/Housing";
+import Woodcutting from "./Components/Woodcutting";
 import { Container, Col, Row } from "react-bootstrap";
 import { connect } from "react-redux";
 import { ResetTimer, TickTimer, UpdateActivityTickers } from "./Actions/Actions";
@@ -59,6 +61,8 @@ const App = (props) => {
                                 <Route exact path="/" component={Home} />
                                 <Route path="/Home" component={Home} />
                                 <Route path="/Info" component={Info} />
+                                <Route path="/Housing" render={(params) => <Housing routeParams={params} />}/>
+                                <Route path="/Woodcutting" render={(params) => <Woodcutting routeParams={params} />}/>
                                 <Route path="/Mining" render={(params) => <Mining routeParams={params} />}/>
                                 <Route path="/Explore" render={(params) => <Explore routeParams={params} />}/>
                             </Col>

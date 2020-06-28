@@ -61,13 +61,13 @@ export const Mining = (props) => {
         <Container fluid>
             <Row>
                 <Col>
-                    <h3>Available Miners: {props.availableWorkers}</h3>
+                    <h3>Available Workers: {props.availableWorkers}</h3>
                 </Col>
             </Row>
             <Row>
             {images.map((ore, key) => (
                 <Col key={key} md={4}>
-                    <div className="card">
+                    <div className="card mining">
                         <Row className="justify-content-center">
                             <Col md={12}>
                                 <h5>

@@ -28,6 +28,16 @@ export const Navbar = (props) => {
                 <Button color={currentWindow === "/Info" ? "primary" : "secondary"} tag={Link} to="/Info" block onClick={() => setCurrentWindow("/Info")}>Info</Button>
             </Col>
         </Row>
+        <Row className="p-1">
+            <Col>
+                <Button color={currentWindow === "/Housing" ? "primary" : "secondary"} tag={Link} to="/Housing" block onClick={() => setCurrentWindow("/Housing")}>Housing</Button>
+            </Col>
+        </Row>
+        <Row className="p-1"> 
+            <Col>
+                <Button color={currentWindow === "/Woodcutting" ? "primary" : "secondary"} tag={Link} to="/Woodcutting" block onClick={() => setCurrentWindow("/Woodcutting")}>Woodcutting</Button>
+            </Col>
+        </Row>
         <Row className="p-1"> 
             <Col>
                 <Button color={currentWindow === "/Mining" ? "primary" : "secondary"} tag={Link} to="/Mining" block onClick={() => setCurrentWindow("/Mining")}>Mining</Button>
