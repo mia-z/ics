@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from "react-redux";
 import { UpdateActivityTickers } from "./../Actions/Actions";
 import { Col, Row, Container, Button } from "react-bootstrap";
@@ -31,6 +31,7 @@ const Explore = (props) => {
                 case "Farmlands": return props.UpdateActivityTickers([...updatedState, new Timer("Explore", location, 200, true)]);
                 case "Forest": return props.UpdateActivityTickers([...updatedState, new Timer("Explore", location, 350, true)]);
                 case "Desert": return props.UpdateActivityTickers([...updatedState, new Timer("Explore", location, 600, true)]);
+                default: return console.log("@@DEFAULT CASE HIT IN HANDLEEXPLORE, GAME WILL PROBABLY CRASH");
             }
         }
     }

@@ -1,5 +1,3 @@
-import Worker from "./Worker";
-
 export default class User {
     constructor(name = "Worker Dude") {
         this.username = name;
@@ -17,7 +15,7 @@ export default class User {
     }
 
     //AddWorker = (worker = new Worker()) => this.workers.push(worker);
-    
+
     AddMoney = (money = 1) => this.money += money;
     AddWood = (wood = 1) => this.wood += wood;
     AddOre = (ore, amount = 1) => {
@@ -28,7 +26,7 @@ export default class User {
             case "Iron": this.ores.Iron += amount; return;
             case "Silver": this.ores.Silver += amount; return;
             case "Gold": this.ores.Gold += amount; return;
-            default: throw "NOTHING PASSED: ERROR AT ADD ORE";
+            default: return console.log("NOTHING PASSED: ERROR AT ADDORE FUNCTION IN USER OBJECT");
         }
     }
 }

@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
 import { Col, Row, Container, Button } from "react-bootstrap";
 import "../styles/info.scss";
-import useInterval from '../Hooks/useTimeout';
-import NavbarCollapse from 'react-bootstrap/NavbarCollapse';
 
 const mapStateToProps = (...state) => { 
     return { 

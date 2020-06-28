@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { HashRouter, Route } from 'react-router-dom';
 import Header from "./Components/Header";
 import Home from "./Components/Home";
@@ -10,9 +10,7 @@ import Status from "./Components/Status";
 import Mining from "./Components/Mining";
 import { Container, Col, Row } from "react-bootstrap";
 import { connect } from "react-redux";
-import { ExploreLocation , ChangeActivity, ToggleTimer, AssignTimerId, ResetTimer, TickTimer, UpdateActivityTickers } from "./Actions/Actions";
-import useInterval from "./Hooks/useTimeout";
-import { RewardBroker } from "./RewardBroker";
+import { ResetTimer, TickTimer, UpdateActivityTickers } from "./Actions/Actions";
 import "./styles/base.scss";
 
 const mapStateToProps = (state) => {
@@ -23,10 +21,6 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-    ChangeActivity,
-    ExploreLocation,
-    ToggleTimer,
-    AssignTimerId,
     TickTimer,
     ResetTimer,
     UpdateActivityTickers

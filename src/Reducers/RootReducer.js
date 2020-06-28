@@ -13,18 +13,6 @@ const initalState = {
 };
 
 const RootReducer = (state = initalState, action) => {
-    if (action.type === types.CHANGE_ACTIVITY) {
-        return {...state,
-            currentActivity: action.payload
-        };
-    }
-
-    if (action.type === types.EXPLORE_LOCATION) {
-        return {...state,
-            currentExploreLocation: action.payload
-        };
-    }
-
     if (action.type === types.TICK_TIMER) {
         return {...state,
             globalTicker: {...state.activityTimer, tick: state.globalTicker.tick += 1}
@@ -39,13 +27,13 @@ const RootReducer = (state = initalState, action) => {
 
     if (action.type === types.UPDATE_ACTIVITY_TICKERS) {
         return {...state, 
-            activityTickers: action.payload}
+            activityTickers: action.payload};
     }
 
     if (action.type === types.UPDATE_WORKERS) {
         return {...state, 
             user: {...state.user, workers: action.payload}
-        }
+        };
     }
 
     if (action.type === types.APPLY_REWARD) {
@@ -55,7 +43,7 @@ const RootReducer = (state = initalState, action) => {
                 return ExploreRewardState(state, action.payload);
             case "Mining": 
                 return MiningRewardState(state, action.payload);
-            default: throw "Tried to apply a reward that went wrong!";
+            default: return console.log("@@ERROR AT APPLY_REWARD ACTION IN ROOTREDUCER: action.payload.activity IS INCORRECT");
         }
     }
     return state;

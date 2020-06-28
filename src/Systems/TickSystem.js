@@ -6,7 +6,7 @@ export const TickSystem = () => {
     let props = store.getState();
     if (props.activityTickers.length !== 0) {
         store.dispatch(TickTimer());
-        let tickActs = props.activityTickers.filter(timer => {
+        let tickActs = props.activityTickers.map(timer => {
             let newActState;
             if (timer.tick >= timer.resetTick) {
                 //console.log(timer.extra);
