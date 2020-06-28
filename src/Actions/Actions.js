@@ -1,4 +1,4 @@
-import { CHANGE_ACTIVITY, EXPLORE_LOCATION, TOGGLE_TIMER, TICK_TIMER, ASSIGN_TIMER_ID, RESET_TIMER, APPLY_REWARD, UPDATE_ACTIVITY_TICKERS } from "./ActionTypes";
+import { CHANGE_ACTIVITY, EXPLORE_LOCATION, TOGGLE_TIMER, TICK_TIMER, ASSIGN_TIMER_ID, RESET_TIMER, APPLY_REWARD, UPDATE_ACTIVITY_TICKERS, UPDATE_WORKERS } from "./ActionTypes";
 
 const ChangeActivity = (payload) => {
     return { type: CHANGE_ACTIVITY, payload }
@@ -28,8 +28,12 @@ const ApplyReward = (activity, extraArgs) => {
     return {type: APPLY_REWARD, payload: { activity, ...extraArgs } }
 }
 
-const UpdateActivityTickers = (payload,) => {
+const UpdateActivityTickers = (payload) => {
     return {type: UPDATE_ACTIVITY_TICKERS, payload}
+}
+
+const UpdateWorkers = (payload) => {
+    return {type: UPDATE_WORKERS, payload}
 }
 
 export {
@@ -40,5 +44,6 @@ export {
     AssignTimerId,
     ResetTimer,
     ApplyReward,
-    UpdateActivityTickers
+    UpdateActivityTickers,
+    UpdateWorkers
 }

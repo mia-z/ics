@@ -33,28 +33,6 @@ const mapDispatchToProps = {
 }
 
 const App = (props) => {
-    useInterval(() => {
-        console.log(props.activityTickers);
-        if (props.activityTickers.length !== 0) {
-            props.TickTimer();
-            let tickActs = props.activityTickers.filter(timer => {
-                let newActState;
-                if (timer.tick >= timer.resetTick) {
-                    console.log(timer.extra);
-                    RewardBroker(timer.activity, { modifiers: { ...timer } });
-                    return newActState = {...timer, tick: timer.tick = 0};
-                } else newActState = {...timer, tick: timer.tick += 1 }
-                return newActState;
-            }); 
-            props.UpdateActivityTickers(tickActs);
-            console.log("ticking in main");
-            if (props.globalTicker.tick >= 100) {
-                props.ResetTimer();
-                console.log("completed this round of tick", props.activityTickers);
-            }
-        }
-    }, 600);
-
     return (
         <HashRouter>
             <Container>

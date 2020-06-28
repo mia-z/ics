@@ -12,11 +12,12 @@ export default class User {
             Gold: 0
         };
         this.money = 0;
-        this.workers = [];
+        this.workers = 5;
         this.wood = 0;
     }
 
-    AddWorker = (worker = new Worker()) => this.workers.push(worker);
+    //AddWorker = (worker = new Worker()) => this.workers.push(worker);
+    
     AddMoney = (money = 1) => this.money += money;
     AddWood = (wood = 1) => this.wood += wood;
     AddOre = (ore, amount = 1) => {

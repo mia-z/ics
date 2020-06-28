@@ -42,6 +42,12 @@ const RootReducer = (state = initalState, action) => {
             activityTickers: action.payload}
     }
 
+    if (action.type === types.UPDATE_WORKERS) {
+        return {...state, 
+            user: {...state.user, workers: action.payload}
+        }
+    }
+
     if (action.type === types.APPLY_REWARD) {
         switch(action.payload.activity)
         {
@@ -56,7 +62,6 @@ const RootReducer = (state = initalState, action) => {
 };
 
 const ExploreRewardState = (state, payload) => {
-    console.log(payload);
     return { ...state, exploreStats: { ...state.exploreStats, [payload.modifiers.extra]: state.exploreStats[payload.modifiers.extra] += 1} };
 }
 
