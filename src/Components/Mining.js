@@ -1,7 +1,7 @@
 import React from 'react';
 import "../styles/mining.scss";
 import { connect } from "react-redux";
-import { UpdateActivityTickers, UpdateWorkers } from "./../Actions/Actions";
+import { UpdateActivityTickers, UpdateWorkers } from "../Actions/GlobalStateActions";
 import { Container, Row, Col, ButtonGroup, Button } from "react-bootstrap";
 import { Line } from "rc-progress";
 import { GetImages } from "../ImageRepo";
@@ -9,23 +9,23 @@ import Timer from "../Objects/Timer";
 
 const mapStateToProps = (state) => { 
     return { 
-        globalTicker: state.globalTicker,
-        activityTickers: state.activityTickers,
+        globalTicker: state.GlobalState.globalTicker,
+        activityTickers: state.GlobalState.activityTickers,
         miningTickers: {
-            "Coal": state.activityTickers.some(x => x.activity === "Mining" && x.extra === "Coal") ? 
-                state.activityTickers.find(x => x.activity === "Mining" && x.extra === "Coal") : new Timer("Mining", "Coal"),
-            "Copper": state.activityTickers.some(x => x.activity === "Mining" && x.extra === "Copper") ? 
-                state.activityTickers.find(x => x.activity === "Mining" && x.extra === "Copper") : new Timer("Mining", "Copper"),
-            "Tin": state.activityTickers.some(x => x.activity === "Mining" && x.extra === "Tin") ? 
-                state.activityTickers.find(x => x.activity === "Mining" && x.extra === "Tin") : new Timer("Mining", "Tin"),
-            "Iron": state.activityTickers.some(x => x.activity === "Mining" && x.extra === "Iron") ? 
-                state.activityTickers.find(x => x.activity === "Mining" && x.extra === "Iron") : new Timer("Mining", "Iron"),
-            "Silver": state.activityTickers.some(x => x.activity === "Mining" && x.extra === "Silver") ? 
-                state.activityTickers.find(x => x.activity === "Mining" && x.extra === "Silver") : new Timer("Mining", "Silver"),
-            "Gold": state.activityTickers.some(x => x.activity === "Mining" && x.extra === "Gold") ? 
-                state.activityTickers.find(x => x.activity === "Mining" && x.extra === "Gold") : new Timer("Mining", "Gold")
+            "Coal": state.GlobalState.activityTickers.some(x => x.activity === "Mining" && x.extra === "Coal") ? 
+                state.GlobalState.activityTickers.find(x => x.activity === "Mining" && x.extra === "Coal") : new Timer("Mining", "Coal"),
+            "Copper": state.GlobalState.activityTickers.some(x => x.activity === "Mining" && x.extra === "Copper") ? 
+                state.GlobalState.activityTickers.find(x => x.activity === "Mining" && x.extra === "Copper") : new Timer("Mining", "Copper"),
+            "Tin": state.GlobalState.activityTickers.some(x => x.activity === "Mining" && x.extra === "Tin") ? 
+                state.GlobalState.activityTickers.find(x => x.activity === "Mining" && x.extra === "Tin") : new Timer("Mining", "Tin"),
+            "Iron": state.GlobalState.activityTickers.some(x => x.activity === "Mining" && x.extra === "Iron") ? 
+                state.GlobalState.activityTickers.find(x => x.activity === "Mining" && x.extra === "Iron") : new Timer("Mining", "Iron"),
+            "Silver": state.GlobalState.activityTickers.some(x => x.activity === "Mining" && x.extra === "Silver") ? 
+                state.GlobalState.activityTickers.find(x => x.activity === "Mining" && x.extra === "Silver") : new Timer("Mining", "Silver"),
+            "Gold": state.GlobalState.activityTickers.some(x => x.activity === "Mining" && x.extra === "Gold") ? 
+                state.GlobalState.activityTickers.find(x => x.activity === "Mining" && x.extra === "Gold") : new Timer("Mining", "Gold")
         },
-        availableWorkers: state.user.workers
+        availableWorkers: state.GlobalState.user.workers
     }
 }
 

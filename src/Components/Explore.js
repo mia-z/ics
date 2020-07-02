@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { UpdateActivityTickers } from "./../Actions/Actions";
+import { UpdateActivityTickers } from "./../Actions/GlobalStateActions";
 import { Col, Row, Container, Button } from "react-bootstrap";
 import { Line } from "rc-progress";
 import "../styles/explore.scss";
@@ -8,9 +8,9 @@ import Timer from "../Objects/Timer";
 
 const mapStateToProps = (state) => { 
     return { 
-        globalTicker: state.globalTicker,
-        activityTickers: state.activityTickers,
-        exploreTicker: state.activityTickers.some(x => x.activity === "Explore") ? state.activityTickers.find(x => x.activity === "Explore") : new Timer("Explore", "None")
+        globalTicker: state.GlobalState.globalTicker,
+        activityTickers: state.GlobalState.activityTickers,
+        exploreTicker: state.GlobalState.activityTickers.some(x => x.activity === "Explore") ? state.GlobalState.activityTickers.find(x => x.activity === "Explore") : new Timer("Explore", "None")
     }
 }
 

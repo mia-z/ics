@@ -1,4 +1,4 @@
-import { TICK_TIMER, RESET_TIMER, APPLY_REWARD, UPDATE_ACTIVITY_TICKERS, UPDATE_WORKERS } from "./ActionTypes";
+import { TICK_TIMER, RESET_TIMER, APPLY_REWARD, UPDATE_ACTIVITY_TICKERS, UPDATE_WORKERS } from "./GlobalStateActionTypes";
 
 const TickTimer = (payload) => {
     return { type: TICK_TIMER, payload }

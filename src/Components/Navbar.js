@@ -6,12 +6,6 @@ import { Col, Row } from "react-bootstrap";
 import { Button } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.css"
 
-const mapStateToProps = (...state) => {
-    return {
-        state: state[0]
-    };
-}
-
 export const Navbar = (props) => {
     const [currentWindow, setCurrentWindow] = useState(props.routeParams.match.url);
 
@@ -52,4 +46,4 @@ export const Navbar = (props) => {
     );
 }
 
-export default connect(mapStateToProps)(Navbar);
+export default connect()(Navbar);

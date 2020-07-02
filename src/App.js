@@ -12,21 +12,21 @@ import Housing from "./Components/Housing";
 import Woodcutting from "./Components/Woodcutting";
 import { Container, Col, Row } from "react-bootstrap";
 import { connect } from "react-redux";
-import { ResetTimer, TickTimer, UpdateActivityTickers } from "./Actions/Actions";
+import { ResetTimer, TickTimer, UpdateActivityTickers } from "./Actions/GlobalStateActions";
 import "./styles/base.scss";
 
-const mapStateToProps = (state) => {
-    return { 
-        globalTicker: state.globalTicker,
-        activityTickers: state.activityTickers
-    }
-}
+// const mapStateToProps = (state) => {
+//     return { 
+//         globalTicker: state.GlobalState.globalTicker,
+//         activityTickers: state.GlobalState.activityTickers
+//     }
+// }
 
-const mapDispatchToProps = {
-    TickTimer,
-    ResetTimer,
-    UpdateActivityTickers
-}
+// const mapDispatchToProps = {
+//     TickTimer,
+//     ResetTimer,
+//     UpdateActivityTickers
+// }
 
 const App = (props) => {
     return (
@@ -74,4 +74,4 @@ const App = (props) => {
     );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect()(App);

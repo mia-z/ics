@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { UpdateActivityTickers, UpdateWorkers } from "./../Actions/Actions";
+import { UpdateActivityTickers, UpdateWorkers } from "./../Actions/GlobalStateActions";
 import { Container, Row, Col, ButtonGroup, Button } from "react-bootstrap";
 import Timer from "../Objects/Timer";
 import { Line } from "rc-progress";
@@ -9,19 +9,19 @@ import "../styles/woodcutting.scss";
 
 const mapStateToProps = (state) => { 
     return { 
-        globalTicker: state.globalTicker,
-        activityTickers: state.activityTickers,
+        globalTicker: state.GlobalState.globalTicker,
+        activityTickers: state.GlobalState.activityTickers,
         woodTickers: {
-            "Oak": state.activityTickers.some(x => x.activity === "Woodcutting" && x.extra === "Oak") ? 
-                state.activityTickers.find(x => x.activity === "Woodcutting" && x.extra === "Oak") : new Timer("Woodcutting", "Oak"),
-            "Ash": state.activityTickers.some(x => x.activity === "Woodcutting" && x.extra === "Ash") ? 
-                state.activityTickers.find(x => x.activity === "Woodcutting" && x.extra === "Ash") : new Timer("Woodcutting", "Ash"),
-            "Willow": state.activityTickers.some(x => x.activity === "Woodcutting" && x.extra === "Willow") ? 
-                state.activityTickers.find(x => x.activity === "Woodcutting" && x.extra === "Willow") : new Timer("Woodcutting", "Willow"),
-            "Ebony": state.activityTickers.some(x => x.activity === "Woodcutting" && x.extra === "Ebony") ? 
-                state.activityTickers.find(x => x.activity === "Woodcutting" && x.extra === "Ebony") : new Timer("Woodcutting", "Ebony"),
-        },
-        availableWorkers: state.user.workers
+            "Oak": state.GlobalState.activityTickers.some(x => x.activity === "Woodcutting" && x.extra === "Oak") ? 
+                state.GlobalState.activityTickers.find(x => x.activity === "Woodcutting" && x.extra === "Oak") : new Timer("Woodcutting", "Oak"),
+            "Ash": state.GlobalState.activityTickers.some(x => x.activity === "Woodcutting" && x.extra === "Ash") ? 
+                state.GlobalState.activityTickers.find(x => x.activity === "Woodcutting" && x.extra === "Ash") : new Timer("Woodcutting", "Ash"),
+            "Willow": state.GlobalState.activityTickers.some(x => x.activity === "Woodcutting" && x.extra === "Willow") ? 
+                state.GlobalState.activityTickers.find(x => x.activity === "Woodcutting" && x.extra === "Willow") : new Timer("Woodcutting", "Willow"),
+            "Ebony": state.GlobalState.activityTickers.some(x => x.activity === "Woodcutting" && x.extra === "Ebony") ? 
+                state.GlobalState.activityTickers.find(x => x.activity === "Woodcutting" && x.extra === "Ebony") : new Timer("Woodcutting", "Ebony"),
+        }, 
+        availableWorkers: state.GlobalState.user.workers
     }
 }
 
