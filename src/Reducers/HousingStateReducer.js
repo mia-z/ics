@@ -45,6 +45,22 @@ export const HousingStateReducer = (state = initalState, action) => {
             housingState: newHousingState, selectedTileCoords: { ...selectedCoords } };
     }
 
+    if (action.type === types.BUILD_HOUSE) {
+        let oldHousingState = state.housingState;
+        oldHousingState[state.selectedTileCoords.y][state.selectedTileCoords.x].buildHouseOnPlot();
+        let newHousingState = RefreshGrid(oldHousingState);
+        return { ...state,
+            housingState: newHousingState };
+    }
+
+    if (action.type === types.ASSIGN_WORKER) {
+        let oldHousingState = state.housingState;
+        oldHousingState[state.selectedTileCoords.y][state.selectedTileCoords.x].assignWorkerToHouse();
+        let newHousingState = RefreshGrid(oldHousingState);
+        return { ...state,
+            housingState: newHousingState };
+    }
+
     return state;
 };
 

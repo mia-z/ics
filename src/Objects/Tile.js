@@ -4,6 +4,11 @@ export class Tile {
         this.state = state;
         this.x = x;
         this.y = y;
+        this.biome = SetBiome(random());
+        this.maxPlots = SetPlotAmt(this.biome);
+        this.plotsInUse = 0;
+        this.houses = 0;
+        this.availableLivingSpots = 0;
     }
 
     purchase()  {
@@ -20,6 +25,42 @@ export class Tile {
 
     select() {
         this.selected = true;
+    }
+
+    buildHouseOnPlot() {
+        this.plotsInUse += 1;
+        this.houses += 1;
+        this.availableLivingSpots += 5;
+    }
+
+    assignWorkerToHouse() {
+        this.availableLivingSpots -= 1;
+    }
+
+    canBuild = () => 
+        this.plotsInUse < this.maxPlots;
+
+    canAssignWorker = () => 
+        this.availableLivingSpots <= this.houses * 5 && this.availableLivingSpots > 0;
+    
+}
+
+const SetBiome = (rand) => {
+        if (rand > 50) return "Grassland";
+        else if (rand <= 50 && rand > 25) return "Woodland";
+        else if (rand <= 25 && rand > 10) return "Tundra";
+        else if (rand <= 10 && rand > 1) return "Desert";
+        else return "Celestial";
+}
+
+const SetPlotAmt = (biome) => {
+    switch(biome) {
+        case "Grassland": return 5;
+        case "Woodland": return 6;
+        case "Tundra": return 8;
+        case "Desert": return 10;
+        case "Celestial": return 15;
+        default: return ":thinking emoji: aka u shouldnt be seeing this ";
     }
 }
 
@@ -46,5 +87,7 @@ export const RefreshGrid = (old) => {
     }
     return newGrid;
 }
+
+const random = () => Math.round(Math.random() * 100);
 
 export default Tile;

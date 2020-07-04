@@ -37,7 +37,7 @@ const mapDispatchToProps = {
 export const Mining = (props) => {
     const images = GetImages(OreTypes);
 
-    const HandleMinusClick = (ore) => { //MAYBE BATCH THESE TO REDUCE RERENDERS
+    const HandleMinusClick = (ore) => {
         props.UpdateWorkers(props.availableWorkers + 1);
         let updatedState =  props.activityTickers.filter(x => x.extra !== ore);
         let oreToUpdate = props.activityTickers.find(x => x.extra === ore);
@@ -46,7 +46,7 @@ export const Mining = (props) => {
         return props.UpdateActivityTickers([...updatedState, {...oreToUpdate, activeWorkers: oreToUpdate.activeWorkers -= 1}]);
     }
 
-    const HandlePlusClick = (ore) => { //MAYBE BATCH THESE TO REDUCE RERENDERS
+    const HandlePlusClick = (ore) => {
         props.UpdateWorkers(props.availableWorkers - 1);
         let updatedState =  props.activityTickers.filter(x => x.extra !== ore);
         let oreToUpdate = props.activityTickers.find(x => x.extra === ore);
