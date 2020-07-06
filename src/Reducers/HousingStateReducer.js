@@ -1,5 +1,5 @@
 import * as types from "../Actions/HousingStateActionTypes";
-import Tile, { InitGrid, RefreshGrid } from "../Objects/Tile";
+import { InitGrid, RefreshGrid } from "../Objects/Tile";
 
 const initalState = {
     housingState: InitGrid(),

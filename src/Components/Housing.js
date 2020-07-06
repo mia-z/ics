@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { connect } from "react-redux";
 import { UpdateHousingGrid, SelectTile, PurchaseTile, UnselectTile, BuildHouse, AssignWorker } from "../Actions/HousingStateActions";
 import { UpdateWorkers } from "../Actions/GlobalStateActions";
-import { Col, Row, Container, Button, FormControl, FormLabel } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import TileInfoComponent from "./SubComponents/TileInfoComponent";
 import TileComponent from "./SubComponents/TileComponent";
 import "../styles/housing.scss";

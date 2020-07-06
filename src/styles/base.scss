@@ -1,11 +1,12 @@
 .left-column {
-    background-color: #2F4F4F;
+    background-color: #84a9ac;
 }
 
 .right-column {
-    background-color: rgba(255, 250, 240, 0.4)
+    background-color: rgba(228,227,227,0.6);
 }
 
 .stretch {
-    min-height: 100vh;
+    min-height: 90vh;
+    box-shadow: 0px 10px 15px 5px rgba(46,46,46,0.4);
 }

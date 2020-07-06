@@ -1,49 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import "../styles/nav.scss";
-import { Col, Row } from "react-bootstrap";
-import { Button } from "reactstrap";
+import { GetIcons } from "../ImageRepo";
 import "bootstrap/dist/css/bootstrap.css"
+import NavButton from "./SubComponents/NavButton";
 
 export const Navbar = (props) => {
-    const [currentWindow, setCurrentWindow] = useState(props.routeParams.match.url);
-
+    const icons = GetIcons(sections);
     return(
     <nav>
-        <Row className="p-1">
-            <Col>
-                <Button color={currentWindow === "/Home"  ? "primary" : "secondary"} 
-                    tag={Link} to="/Home" block onClick={() => setCurrentWindow("/Home")}>Home</Button>
-            </Col>
-        </Row>
-        <Row className="p-1">
-            <Col>
-                <Button color={currentWindow === "/Info" ? "primary" : "secondary"} tag={Link} to="/Info" block onClick={() => setCurrentWindow("/Info")}>Info</Button>
-            </Col>
-        </Row>
-        <Row className="p-1">
-            <Col>
-                <Button color={currentWindow === "/Housing" ? "primary" : "secondary"} tag={Link} to="/Housing" block onClick={() => setCurrentWindow("/Housing")}>Housing</Button>
-            </Col>
-        </Row>
-        <Row className="p-1"> 
-            <Col>
-                <Button color={currentWindow === "/Woodcutting" ? "primary" : "secondary"} tag={Link} to="/Woodcutting" block onClick={() => setCurrentWindow("/Woodcutting")}>Woodcutting</Button>
-            </Col>
-        </Row>
-        <Row className="p-1"> 
-            <Col>
-                <Button color={currentWindow === "/Mining" ? "primary" : "secondary"} tag={Link} to="/Mining" block onClick={() => setCurrentWindow("/Mining")}>Mining</Button>
-            </Col>
-        </Row>
-        <Row className="p-1"> 
-            <Col>
-                <Button color={currentWindow === "/Explore" ? "primary" : "secondary"} tag={Link} to="/Explore" block onClick={() => setCurrentWindow("/Explore")}>Explore</Button>
-            </Col>
-        </Row>
+        {icons.map((name, index) => (
+            <NavButton key={name.ImageName} currentUrl={props.routeParams.match.url} name={name.ImageName} imageUrl={name.ImageUrl}>
+                {name.ImageName}
+            </NavButton>
+        ))}
     </nav>
     );
 }
+
+const sections = [ "Home", "Stats", "Housing", "Woodcutting", "Mining", "Explore" ];
 
 export default connect()(Navbar);

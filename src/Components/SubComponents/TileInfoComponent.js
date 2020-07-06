@@ -50,6 +50,8 @@ export const TileInfoComponent = (props) => {
                         </Row>
                     </>
                 );
+            default:
+                return("you shouldnt EVER see this, im satisfying the ESLint");
         }
     } else
         return (
