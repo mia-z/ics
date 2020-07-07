@@ -18,7 +18,6 @@ import ParallaxBg from "./Components/SubComponents/ParallaxBg";
 const App = (props) => {
     return (
         <HashRouter>
-            <ParallaxBg />
             <Container>
                 <Row className="stretch" noGutters>
                     <Col md={3} className="left-column"> {/*LEFT COLUMN*/}
