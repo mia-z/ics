@@ -2,6 +2,7 @@ import store from "./../store";
 import { TickTimer, ResetTimer, UpdateActivityTickers } from "./../Actions/GlobalStateActions";
 import { RewardBroker } from "./../RewardBroker";
 
+
 export const TickSystem = () => {
     let props = store.getState().GlobalState;
     if (props.activityTickers.length !== 0) {

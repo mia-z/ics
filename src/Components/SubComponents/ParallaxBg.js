@@ -53,7 +53,7 @@ export const ParallaxBg = () => {
     useEffect(() => {
         const scene = document.getElementById("scene");
         new Parallax(scene);
-    });
+    }, []);
 
     return(
         <Container>
