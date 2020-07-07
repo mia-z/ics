@@ -10,7 +10,7 @@ import ParallaxBg from "./Components/SubComponents/ParallaxBg";
 
 ReactDOM.render(
     <Provider store={store}>
-        <ParallaxBg />
+        {/*<ParallaxBg />*/}
         <GameEngine
             systems={[TickSystem]}
             >
