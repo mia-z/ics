@@ -1,12 +1,12 @@
 import store from "./../store";
-import { TickTimer, ResetTimer, UpdateActivityTickers } from "./../Actions/Actions";
+import { TickTimer, ResetTimer, UpdateActivityTickers } from "./../Actions/GlobalStateActions";
 import { RewardBroker } from "./../RewardBroker";
 
 export const TickSystem = () => {
-    let props = store.getState();
+    let props = store.getState().GlobalState;
     if (props.activityTickers.length !== 0) {
         store.dispatch(TickTimer());
-        let tickActs = props.activityTickers.filter(timer => {
+        let tickActs = props.activityTickers.map(timer => {
             let newActState;
             if (timer.tick >= timer.resetTick) {
                 //console.log(timer.extra);

@@ -12,7 +12,7 @@ ReactDOM.render(
         <GameEngine
             systems={[TickSystem]}
             >
-                    <App />
+                <App />
         </GameEngine>
     </Provider>,
     document.getElementById('root')

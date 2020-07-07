@@ -1,40 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { HashRouter, Route } from 'react-router-dom';
 import Header from "./Components/Header";
 import Home from "./Components/Home";
-import Info from "./Components/Info";
+import Stats from "./Components/Stats";
 import Explore from "./Components/Explore";
 import Navbar from "./Components/Navbar";
 import Banner from "./Components/Banner";
 import Status from "./Components/Status";
 import Mining from "./Components/Mining";
+import Housing from "./Components/Housing";
+import Woodcutting from "./Components/Woodcutting";
 import { Container, Col, Row } from "react-bootstrap";
 import { connect } from "react-redux";
-import { ExploreLocation , ChangeActivity, ToggleTimer, AssignTimerId, ResetTimer, TickTimer, UpdateActivityTickers } from "./Actions/Actions";
-import useInterval from "./Hooks/useTimeout";
-import { RewardBroker } from "./RewardBroker";
 import "./styles/base.scss";
-
-const mapStateToProps = (state) => {
-    return { 
-        globalTicker: state.globalTicker,
-        activityTickers: state.activityTickers
-    }
-}
-
-const mapDispatchToProps = {
-    ChangeActivity,
-    ExploreLocation,
-    ToggleTimer,
-    AssignTimerId,
-    TickTimer,
-    ResetTimer,
-    UpdateActivityTickers
-}
+import ParallaxBg from "./Components/SubComponents/ParallaxBg";
 
 const App = (props) => {
     return (
         <HashRouter>
+            <ParallaxBg />
             <Container>
                 <Row className="stretch" noGutters>
                     <Col md={3} className="left-column"> {/*LEFT COLUMN*/}
@@ -64,7 +48,9 @@ const App = (props) => {
                             <Col>
                                 <Route exact path="/" component={Home} />
                                 <Route path="/Home" component={Home} />
-                                <Route path="/Info" component={Info} />
+                                <Route path="/Stats" component={Stats} />
+                                <Route path="/Housing" render={(params) => <Housing routeParams={params} />}/>
+                                <Route path="/Woodcutting" render={(params) => <Woodcutting routeParams={params} />}/>
                                 <Route path="/Mining" render={(params) => <Mining routeParams={params} />}/>
                                 <Route path="/Explore" render={(params) => <Explore routeParams={params} />}/>
                             </Col>
@@ -76,4 +62,6 @@ const App = (props) => {
     );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+
+export default connect()(App);
