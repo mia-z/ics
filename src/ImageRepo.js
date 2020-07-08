@@ -9,6 +9,17 @@ export const GetImages = (array) => {
     return imageArray;
 }
 
+export const GetSvg = (array) => {
+    let imageArray = [];
+    array.map(name => {
+        return imageArray.push(new Image(
+            name,
+            `${process.env.PUBLIC_URL}/Assets/${name}.svg`
+        ));
+    });
+    return imageArray;
+}
+
 export const GetIcons = (array) => {
     let imageArray = [];
     array.map(name => {

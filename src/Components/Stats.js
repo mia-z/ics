@@ -21,8 +21,8 @@ export const Stats = ({user, exploreStats}) => { //This can probably updated or 
                 </Row>
                 <Row>
                     {Object.entries(user.ores).map((item, key) =>
-                        <Col>
-                            <div key={key}>{item[0]}&nbsp;{item[1]}</div>
+                        <Col key={key}>
+                            <div>{item[0]}&nbsp;{item[1]}</div>
                         </Col>
                     )}
                 </Row>
@@ -36,8 +36,8 @@ export const Stats = ({user, exploreStats}) => { //This can probably updated or 
                 </Row>
                 <Row>
                     {Object.entries(user.wood).map((item, key) =>
-                        <Col>
-                            <div key={key}>{item[0]}&nbsp;{item[1]}</div>
+                        <Col key={key}>
+                            <div>{item[0]}&nbsp;{item[1]}</div>
                         </Col>
                     )}
 
@@ -52,8 +52,8 @@ export const Stats = ({user, exploreStats}) => { //This can probably updated or 
                 </Row>
                 <Row>
                     {Object.entries(exploreStats).map((item, key) =>
-                        <Col>
-                            <div key={key}>{item[0]}&nbsp;{item[1]}</div>
+                        <Col key={key}>
+                            <div>{item[0]}&nbsp;{item[1]}</div>
                         </Col>
                     )}
 
