@@ -10,7 +10,7 @@ export const Navbar = (props) => {
     return(
     <nav>
         {icons.map((name, index) => (
-            <NavButton key={name.ImageName} currentUrl={props.routeParams.match.url} name={name.ImageName} imageUrl={name.ImageUrl}>
+            <NavButton key={name.ImageName} currentUrl={props.routeParams.match.url} name={name.ImageName}>
                 {name.ImageName}
             </NavButton>
         ))}
