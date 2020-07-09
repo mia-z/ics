@@ -53,7 +53,6 @@ export const ParallaxBg = () => {
     useEffect(() => {
         const scene = document.getElementById("scene");
         let p = new Parallax(scene);
-        p.disable();
     }, []);
 
     return(

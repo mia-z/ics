@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { UpdateHousingGrid, SelectTile, PurchaseTile, UnselectTile, BuildHouse, AssignWorker } from "../Actions/HousingStateActions";
+import { UpdateHousingGrid, SelectTile, ExploreTile, ControlTile, UnselectTile, BuildHouse, AssignWorker } from "../Actions/HousingStateActions";
 import { UpdateWorkers } from "../Actions/GlobalStateActions";
 import { Col, Row } from "react-bootstrap";
 import TileInfoComponent from "./SubComponents/TileInfoComponent";
 import TileComponent from "./SubComponents/TileComponent";
+import { TileStates } from "../Objects/Tile"
 import "../styles/housing.scss";
 
 const mapStateToProps = (state) => { 
@@ -19,7 +20,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     UpdateHousingGrid,
     SelectTile,
-    PurchaseTile,
+    ExploreTile,
+    ControlTile,
     UnselectTile,
     BuildHouse,
     AssignWorker,
@@ -28,23 +30,26 @@ const mapDispatchToProps = {
 
 export const Housing = (props) => {
     const HandleTileClick = (x, y) => {
-        if (props.housing[y][x].state === "UNAVAILABLE") return;
+        if (props.housing[y][x].state === TileStates.UNAVAILABLE) return;
         if (props.housing[y][x].selected) return props.UnselectTile(x, y);
         props.SelectTile(x, y);
     }
 
-    const PurchaseTile = (x, y) => {
+    const ExploreTile = (x, y) => {
         console.log("purchasing");
-        props.PurchaseTile(x, y);
+        props.ExploreTile(x, y);
+    }
+
+    const ControlTile = (x, y) => {
+        console.log("controlling tile");
+        props.ControlTile(x, y);
     }
 
     const BuildHouse = (x, y) => {
-        console.log("building house");
         props.BuildHouse();
     }
 
     const AssignWorker = () => {
-        console.log("assigning worker to house in plot");
         props.AssignWorker();
         props.UpdateWorkers(props.availableWorkers + 1);
     }
@@ -65,7 +70,7 @@ export const Housing = (props) => {
                 ))}
             </Col>
         </Row>
-        <TileInfoComponent tileInfo={props.selectedTile} purchaseThisTile={PurchaseTile} buildHouseOnTile={BuildHouse} assignWorkerToTile={AssignWorker}/>
+        <TileInfoComponent tileInfo={props.selectedTile} controlThisTile={ControlTile} exploreThisTile={ExploreTile} buildHouseOnTile={BuildHouse} assignWorkerToTile={AssignWorker}/>
         </>
     );
 }

@@ -14,7 +14,7 @@ const initalState = {
 export const GlobalStateReducer = (state = initalState, action) => {
     if (action.type === types.TICK_TIMER) {
         return {...state,
-            globalTicker: {...state.activityTimer, tick: state.globalTicker.tick += 1}
+            globalTicker: {...state.globalTicker, tick: state.globalTicker.tick += 1}
         };
     }
 
@@ -24,8 +24,14 @@ export const GlobalStateReducer = (state = initalState, action) => {
         };
     }
 
+    if (action.type === types.ASSIGN_TIMER_ID) {
+        return {...state,
+            globalTicker: {...state.globalTicker, id: action.payload}
+        };
+    }
+
     if (action.type === types.UPDATE_ACTIVITY_TICKERS) {
-        return {...state, 
+        return {...state,
             activityTickers: action.payload};
     }
 
@@ -44,7 +50,7 @@ export const GlobalStateReducer = (state = initalState, action) => {
                 return MiningRewardState(state, action.payload);
             case "Woodcutting":
                 return WoodcuttingRewardState(state, action.payload);
-            default: return console.log("@@ERROR AT APPLY_REWARD ACTION IN GlobalStateReducerac: action.payload.activity IS INCORRECT");
+            default: return console.log("@@ERROR AT APPLY_REWARD ACTION IN GlobalStateReducer: action.payload.activity IS INCORRECT");
         }
     }
     return state;

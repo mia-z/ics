@@ -1,10 +1,11 @@
 import React from "react";
 import { Col, Row, Button } from "react-bootstrap";
+import { TileStates } from "../../Objects/Tile"
 
 export const TileInfoComponent = (props) => {
     if (props.tileInfo) {
         switch (props.tileInfo.state) {
-            case "UNPURCHASED":
+            case TileStates.UNEXPLORED:
                 return (
                     <div>
                         <Row>
@@ -15,16 +16,36 @@ export const TileInfoComponent = (props) => {
                         <Row className="justify-content-center">
                             <Col md={3}>
                                 <Button
-                                    onClick={() => props.purchaseThisTile(props.tileInfo.x, props.tileInfo.y)}
+                                    onClick={() => props.exploreThisTile(props.tileInfo.x, props.tileInfo.y)}
                                     block>
-                                    Purchase tile
+                                    Start Exploring
                                 </Button>
                             </Col>
                         </Row>
                     </div>
                 );
 
-            case "PURCHASED":
+            case TileStates.EXPLORED:
+                return (
+                    <div>
+                        <Row>
+                            <Col>
+                                <h4>{props.tileInfo.state}</h4>
+                            </Col>
+                        </Row>
+                        <Row className="justify-content-center">
+                            <Col md={3}>
+                                <Button
+                                    onClick={() => props.controlThisTile(props.tileInfo.x, props.tileInfo.y)}
+                                    block>
+                                    Control
+                                </Button>
+                            </Col>
+                        </Row>
+                    </div>
+                );
+
+            case TileStates.CONTROLLED:
                 return (
                     <>
                         <Row className="justify-content-center">

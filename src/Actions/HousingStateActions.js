@@ -1,4 +1,4 @@
-import { UPDATE_HOUSING_GRID, SELECT_TILE, PURCHASE_TILE, UNSELECT_TILE, BUILD_HOUSE, ASSIGN_WORKER } from "./HousingStateActionTypes";
+import { UPDATE_HOUSING_GRID, SELECT_TILE, EXPLORE_TILE, CONTROL_TILE, UNSELECT_TILE, BUILD_HOUSE, ASSIGN_WORKER } from "./HousingStateActionTypes";
 
 const UpdateHousingGrid = (payload) => {
     return {type: UPDATE_HOUSING_GRID, payload}
@@ -12,8 +12,12 @@ const UnselectTile = (tileX, tileY) => {
     return {type: UNSELECT_TILE, tileX, tileY}
 }
 
-const PurchaseTile = (tileX, tileY) => {
-    return {type: PURCHASE_TILE, tileX, tileY}
+const ExploreTile = (tileX, tileY) => {
+    return {type: EXPLORE_TILE, tileX, tileY}
+}
+
+const ControlTile = (tileX, tileY) => {
+    return {type: CONTROL_TILE, tileX, tileY}
 }
 
 const BuildHouse = () => {
@@ -26,7 +30,8 @@ const AssignWorker = () => {
 export {
     UpdateHousingGrid,
     SelectTile,
-    PurchaseTile,
+    ExploreTile,
+    ControlTile,
     UnselectTile,
     BuildHouse,
     AssignWorker

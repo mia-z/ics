@@ -13,13 +13,13 @@ const mapStateToProps = (state) => {
         activityTickers: state.GlobalState.activityTickers,
         woodTickers: {
             "Oak": state.GlobalState.activityTickers.some(x => x.activity === "Woodcutting" && x.extra === "Oak") ? 
-                state.GlobalState.activityTickers.find(x => x.activity === "Woodcutting" && x.extra === "Oak") : new Timer("Woodcutting", "Oak"),
+                state.GlobalState.activityTickers.find(x => x.activity === "Woodcutting" && x.extra === "Oak") : new Timer("Woodcutting", "Oak", 300),
             "Ash": state.GlobalState.activityTickers.some(x => x.activity === "Woodcutting" && x.extra === "Ash") ? 
-                state.GlobalState.activityTickers.find(x => x.activity === "Woodcutting" && x.extra === "Ash") : new Timer("Woodcutting", "Ash"),
+                state.GlobalState.activityTickers.find(x => x.activity === "Woodcutting" && x.extra === "Ash") : new Timer("Woodcutting", "Ash", 500),
             "Willow": state.GlobalState.activityTickers.some(x => x.activity === "Woodcutting" && x.extra === "Willow") ? 
-                state.GlobalState.activityTickers.find(x => x.activity === "Woodcutting" && x.extra === "Willow") : new Timer("Woodcutting", "Willow"),
+                state.GlobalState.activityTickers.find(x => x.activity === "Woodcutting" && x.extra === "Willow") : new Timer("Woodcutting", "Willow", 600),
             "Ebony": state.GlobalState.activityTickers.some(x => x.activity === "Woodcutting" && x.extra === "Ebony") ? 
-                state.GlobalState.activityTickers.find(x => x.activity === "Woodcutting" && x.extra === "Ebony") : new Timer("Woodcutting", "Ebony"),
+                state.GlobalState.activityTickers.find(x => x.activity === "Woodcutting" && x.extra === "Ebony") : new Timer("Woodcutting", "Ebony", 1500),
         }, 
         availableWorkers: state.GlobalState.user.workers
     }
@@ -33,7 +33,7 @@ const mapDispatchToProps = {
 export const Woodcutting = (props) => {
     const images = GetImages(WoodTypes);
 
-    const HandleMinusClick = (wood) => { //MAYBE BATCH THESE TO REDUCE RERENDERS
+    const HandleMinusClick = (wood) => { //MAYBE BATCH THESE TO REDUCE RE-RENDERS (DOES IT EVEN RE-RENDER?)
         props.UpdateWorkers(props.availableWorkers + 1);
         let updatedState =  props.activityTickers.filter(x => x.extra !== wood);
         let woodToUpdate = props.activityTickers.find(x => x.extra === wood);
@@ -42,7 +42,7 @@ export const Woodcutting = (props) => {
         return props.UpdateActivityTickers([...updatedState, {...woodToUpdate, activeWorkers: woodToUpdate.activeWorkers -= 1}]);
     }
 
-    const HandlePlusClick = (wood) => { //MAYBE BATCH THESE TO REDUCE RERENDERS
+    const HandlePlusClick = (wood) => { //MAYBE BATCH THESE TO REDUCE RE-RENDERS (DOES IT EVEN RE-RENDER?)
         props.UpdateWorkers(props.availableWorkers - 1);
         let updatedState =  props.activityTickers.filter(x => x.extra !== wood);
         let woodToUpdate = props.activityTickers.find(x => x.extra === wood);

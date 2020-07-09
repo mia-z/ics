@@ -13,9 +13,10 @@ import Woodcutting from "./Components/Woodcutting";
 import { Container, Col, Row } from "react-bootstrap";
 import { connect } from "react-redux";
 import "./styles/base.scss";
-import ParallaxBg from "./Components/SubComponents/ParallaxBg";
+import { StartTickSystem } from "./Systems/TickSystem";
 
 const App = (props) => {
+    StartTickSystem();
     return (
         <HashRouter>
             <Container>

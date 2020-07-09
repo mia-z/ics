@@ -1,5 +1,5 @@
 export class Tile {
-    constructor(x, y, state = "UNAVAILABLE", selected = false) {
+    constructor(x, y, state = TileStates.UNAVAILABLE, selected = false) {
         this.selected = selected;
         this.state = state;
         this.x = x;
@@ -11,12 +11,16 @@ export class Tile {
         this.availableLivingSpots = 0;
     }
 
-    purchase()  {
-        this.state = "PURCHASED";
+    explore()  {
+        this.state = TileStates.EXPLORED;
     }
 
-    setUnpurchased() {
-        this.state = "UNPURCHASED";
+    control() {
+        this.state = TileStates.CONTROLLED;
+    }
+
+    setUnexplored() {
+        this.state = TileStates.UNEXPLORED;
     }
 
     unselect() {
@@ -74,9 +78,9 @@ export const InitGrid = () => {
         }
         grid.push(rowToAdd);
     }
-    grid[0][0].state = "PURCHASED";
-    grid[0][1].state = "UNPURCHASED";
-    grid[1][0].state = "UNPURCHASED";
+    grid[0][0].state = TileStates.CONTROLLED;
+    grid[0][1].state = TileStates.UNEXPLORED;
+    grid[1][0].state = TileStates.UNEXPLORED;
     return grid;
 }
 
@@ -89,5 +93,12 @@ export const RefreshGrid = (old) => {
 }
 
 const random = () => Math.round(Math.random() * 100);
+
+export const TileStates = {
+    UNAVAILABLE: "UNAVAILABLE",
+    EXPLORED: "EXPLORED",
+    UNEXPLORED: "UNEXPLORED",
+    CONTROLLED: "CONTROLLED"
+}
 
 export default Tile;
