@@ -18,6 +18,6 @@ export const Navbar = (props) => {
     );
 }
 
-const sections = [ "Home", "Stats", "Housing", "Woodcutting", "Mining", "Explore" ];
+const sections = [ "Home", "Stats", "Exploration", "Woodcutting", "Mining" ];
 
 export default connect()(Navbar);

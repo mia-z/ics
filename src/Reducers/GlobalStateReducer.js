@@ -2,7 +2,7 @@ import * as types from "../Actions/GlobalStateActionTypes";
 import Timer from "../Objects/Timer";
 import User from "../Objects/User";
 import store from "./../store";
-import { ExploreTile } from "./../Actions/HousingStateActions";
+import { ExploreTile } from "../Actions/ExplorationStateActions";
 
 const initialState = {
     globalTicker: new Timer("global"),

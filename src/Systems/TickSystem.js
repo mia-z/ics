@@ -1,6 +1,6 @@
 import store from "./../store";
 import { TickTimer, ResetTimer, UpdateActivityTickers, AssignTimerId } from "./../Actions/GlobalStateActions";
-import { ExploreTile } from "../Actions/HousingStateActions";
+import { ExploreTile } from "../Actions/ExplorationStateActions";
 import { RewardBroker } from "./../RewardBroker";
 
 export const StartTickSystem = () => {

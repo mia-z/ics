@@ -1,16 +1,16 @@
-.housing-grid-container {
+.explore-grid-container {
     display: flex;
     flex-flow: column;
     border: 5px double #4d4d4d;
     border-radius: 1.5%
 }
 
-.housing-grid-row {
+.explore-grid-row {
     display: flex;
     flex-flow: row;
 }
 
-.housing-grid-col {
+.explore-grid-col {
     flex-flow: row;
 }
 
@@ -18,16 +18,20 @@
     animation: filter-animation 1s infinite;
 }
 
+h5, h4, h3 {
+    text-align: center;
+}
+
 @keyframes filter-animation {
     0% {
-        filter: hue-rotate(0deg);
+        border: 0.1px solid whitesmoke;
     }
 
     50% {
-        filter: hue-rotate(200deg);
+        border: 3px solid whitesmoke;
     }
 
     100% {
-        filter: hue-rotate(0deg);
+        border: 0.1px solid whitesmoke;
     }
 }

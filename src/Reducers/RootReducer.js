@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import { GlobalStateReducer } from "./GlobalStateReducer";
-import { HousingStateReducer } from "./HousingStateReducer";
+import { ExplorationStateReducer } from "./ExplorationStateReducer";
 
-const RootReducer = combineReducers({GlobalState: GlobalStateReducer, HousingState: HousingStateReducer});
+const RootReducer = combineReducers({GlobalState: GlobalStateReducer, ExplorationState: ExplorationStateReducer});
 
 export default RootReducer;

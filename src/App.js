@@ -3,12 +3,11 @@ import { HashRouter, Route } from 'react-router-dom';
 import Header from "./Components/Header";
 import Home from "./Components/Home";
 import Stats from "./Components/Stats";
-import Explore from "./Components/Explore";
 import Navbar from "./Components/Navbar";
 import Banner from "./Components/Banner";
 import Status from "./Components/Status";
 import Mining from "./Components/Mining";
-import Housing from "./Components/Housing";
+import Exploration from "./Components/Exploration";
 import Woodcutting from "./Components/Woodcutting";
 import { Container, Col, Row } from "react-bootstrap";
 import { connect } from "react-redux";
@@ -49,7 +48,7 @@ const App = (props) => {
                                 <Route exact path="/" component={Home} />
                                 <Route path="/Home" component={Home} />
                                 <Route path="/Stats" component={Stats} />
-                                <Route path="/Housing" render={(params) => <Housing routeParams={params} />}/>
+                                <Route path="/Exploration" render={(params) => <Exploration routeParams={params} />}/>
                                 <Route path="/Woodcutting" render={(params) => <Woodcutting routeParams={params} />}/>
                                 <Route path="/Mining" render={(params) => <Mining routeParams={params} />}/>
                             </Col>

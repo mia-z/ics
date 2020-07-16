@@ -1,7 +1,7 @@
-import { UPDATE_HOUSING_GRID, SELECT_TILE, EXPLORE_TILE, CONTROL_TILE, UNSELECT_TILE, BUILD_HOUSE, ASSIGN_WORKER, UPDATE_STYLE } from "./HousingStateActionTypes";
+import { UPDATE_GRID, SELECT_TILE, EXPLORE_TILE, CONTROL_TILE, UNSELECT_TILE, BUILD_HOUSE, ASSIGN_WORKER, UPDATE_STYLE } from "./ExplorationStateActionTypes";
 
-const UpdateHousingGrid = (payload) => {
-    return {type: UPDATE_HOUSING_GRID, payload}
+const UpdateGrid = (payload) => {
+    return {type: UPDATE_GRID, payload}
 }
 
 const SelectTile = (tileX, tileY) => {
@@ -32,7 +32,7 @@ const UpdateStyle = (style) => {
     return {type: UPDATE_STYLE, style}
 }
 export {
-    UpdateHousingGrid,
+    UpdateGrid,
     SelectTile,
     ExploreTile,
     ControlTile,

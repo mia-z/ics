@@ -9,7 +9,7 @@ import { Line } from "rc-progress";
 const mapStateToProps = (state) => {
     return {
         activityTickers: state.GlobalState.activityTickers,
-        thisTicker: state.GlobalState.activityTickers.find(t => t.extra === `${state.HousingState.selectedTileCoords.x}-${state.HousingState.selectedTileCoords.y}`)
+        thisTicker: state.GlobalState.activityTickers.find(t => t.extra === `${state.ExplorationState.selectedTileCoords.x}-${state.ExplorationState.selectedTileCoords.y}`)
     }
 }
 
@@ -43,7 +43,7 @@ export const TileInfoComponent = (props) => {
                     <div>
                         <Row>
                             <Col>
-                                <h4>{props.tileInfo.state} - {props.tileInfo.biome}</h4>
+                                <h4 className="text-center">{props.tileInfo.state} - {props.tileInfo.biome}</h4>
                             </Col>
                         </Row>
                         <Container>
