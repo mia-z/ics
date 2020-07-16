@@ -1,8 +1,10 @@
 import * as types from "../Actions/GlobalStateActionTypes";
 import Timer from "../Objects/Timer";
 import User from "../Objects/User";
+import store from "./../store";
+import { ExploreTile } from "./../Actions/HousingStateActions";
 
-const initalState = {
+const initialState = {
     globalTicker: new Timer("global"),
     activityTickers: [],
     exploreStats: {
@@ -11,7 +13,7 @@ const initalState = {
     user: new User()
 };
 
-export const GlobalStateReducer = (state = initalState, action) => {
+export const GlobalStateReducer = (state = initialState, action) => {
     if (action.type === types.TICK_TIMER) {
         return {...state,
             globalTicker: {...state.globalTicker, tick: state.globalTicker.tick += 1}
@@ -46,7 +48,7 @@ export const GlobalStateReducer = (state = initalState, action) => {
         {
             case "Explore": 
                 return ExploreRewardState(state, action.payload);
-            case "Mining": 
+            case "Mining":
                 return MiningRewardState(state, action.payload);
             case "Woodcutting":
                 return WoodcuttingRewardState(state, action.payload);
@@ -57,7 +59,8 @@ export const GlobalStateReducer = (state = initalState, action) => {
 };
 
 const ExploreRewardState = (state, payload) => {
-    return { ...state, exploreStats: { ...state.exploreStats, [payload.modifiers.extra]: state.exploreStats[payload.modifiers.extra] += 1} };
+    //May need this later
+    return { ...state };
 }
 
 const MiningRewardState = (state, payload) => {

@@ -36,7 +36,7 @@ export const Housing = (props) => {
     }
 
     const ExploreTile = (x, y) => {
-        console.log("purchasing");
+        console.log("exploring");
         props.ExploreTile(x, y);
     }
 
@@ -63,7 +63,7 @@ export const Housing = (props) => {
                     <div key={index} className="housing-grid-row">
                         {row.map((col, index) => (
                             <div key={index} className="housing-grid-col">
-                                <TileComponent coords={{x: col.x, y: col.y}} click={HandleTileClick}  selected={col.selected} state={col.state} />
+                                <TileComponent coords={{x: col.x, y: col.y}} click={HandleTileClick} selected={col.selected} state={col.state} />
                             </div>
                         ))}
                     </div>

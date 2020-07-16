@@ -13,3 +13,21 @@
 .housing-grid-col {
     flex-flow: row;
 }
+
+.animate-selected {
+    animation: filter-animation 1s infinite;
+}
+
+@keyframes filter-animation {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+
+    50% {
+        filter: hue-rotate(200deg);
+    }
+
+    100% {
+        filter: hue-rotate(0deg);
+    }
+}

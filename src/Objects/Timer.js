@@ -1,5 +1,5 @@
 export default class Timer {
-    constructor(activity, extra, resetAt = 100, overrideIsRunning = false) {
+    constructor(activity, extra, resetAt = 100, overrideIsRunning = false, onDone = null) {
         this.activity = activity;
         this.tick = 0;
         this.extra = extra;
@@ -7,5 +7,6 @@ export default class Timer {
         this.id = -1;
         this.resetTick = resetAt;
         this.activeWorkers = 0;
+        this.onDone = onDone;
     }
 }

@@ -52,7 +52,6 @@ const App = (props) => {
                                 <Route path="/Housing" render={(params) => <Housing routeParams={params} />}/>
                                 <Route path="/Woodcutting" render={(params) => <Woodcutting routeParams={params} />}/>
                                 <Route path="/Mining" render={(params) => <Mining routeParams={params} />}/>
-                                <Route path="/Explore" render={(params) => <Explore routeParams={params} />}/>
                             </Col>
                         </Row>
                     </Col>

@@ -69,6 +69,11 @@ export const HousingStateReducer = (state = initialState, action) => {
             housingState: newHousingState };
     }
 
+    if (action.type === types.UPDATE_STYLE) {
+        return {...state,
+            housingStyles: action.payload};
+    }
+
     return state;
 };
 
