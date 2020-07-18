@@ -9,6 +9,7 @@ export class Tile {
         this.plotsInUse = 0;
         this.houses = 0;
         this.availableLivingSpots = 0;
+        this.treeNodes = [];
     }
 
     explore()  {
@@ -67,6 +68,8 @@ const SetPlotAmt = (biome) => {
         default: return ":thinking emoji: aka u shouldnt be seeing this ";
     }
 }
+
+
 
 export const InitGrid = () => {
     let grid = [];
