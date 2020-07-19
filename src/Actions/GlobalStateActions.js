@@ -1,34 +1,59 @@
-import { TICK_TIMER, RESET_TIMER, APPLY_REWARD, UPDATE_ACTIVITY_TICKERS, UPDATE_WORKERS, ASSIGN_TIMER_ID } from "./GlobalStateActionTypes";
+import * as types from "../Actions/GlobalStateActionTypes";
 
-const TickTimer = (payload) => {
-    return { type: TICK_TIMER, payload }
+const TickGlobalTimer = () => {
+    return { type: types.TICK_GLOBAL_TIMER };
 }
 
-const ResetTimer = (payload) => {
-    return {type: RESET_TIMER, payload }
+const ResetGlobalTimer = () => {
+    return {type: types.RESET_GLOBAL_TIMER };
 }
 
 const ApplyReward = (activity, extraArgs) => {
-    return {type: APPLY_REWARD, payload: { activity, ...extraArgs } }
+    return {type: types.APPLY_REWARD, payload: { activity, ...extraArgs } };
 }
 
-const UpdateActivityTickers = (payload) => {
-    return {type: UPDATE_ACTIVITY_TICKERS, payload}
+const TickActivityTimer = () => {
+    return {type: types.TICK_ACTIVITY_TIMER};
 }
 
-const UpdateWorkers = (payload) => {
-    return {type: UPDATE_WORKERS, payload}
+const ResetActivityTimer = () => {
+    return {type: types.RESET_ACTIVITY_TIMER};
 }
 
-const AssignTimerId = (payload) => {
-    return {type: ASSIGN_TIMER_ID, payload}
+const StopActivityTimer = () => {
+    return {type: types.STOP_ACTIVITY_TIMER};
+}
+
+const StartActivityTimer = () => {
+    return {type: types.START_ACTIVITY_TIMER};
+}
+
+const SetActivity = (payload) => {
+    return {type: types.SET_ACTIVITY, payload};
+}
+
+const SetActivityParams = (payload) => {
+    return {type: types.SET_ACTIVITY_PARAMS, payload};
+}
+
+const SetActivityDelegate = (payload) => {
+    return {type: types.SET_ACTIVITY_DELEGATE, payload};
+}
+
+const SetActivityThreshold = (payload) => {
+    return {type: types.SET_ACTIVITY_THRESHOLD, payload};
 }
 
 export {
-    TickTimer,
-    ResetTimer,
+    TickGlobalTimer,
+    ResetGlobalTimer,
     ApplyReward,
-    UpdateActivityTickers,
-    UpdateWorkers,
-    AssignTimerId
+    TickActivityTimer,
+    ResetActivityTimer,
+    StopActivityTimer,
+    StartActivityTimer,
+    SetActivity,
+    SetActivityParams,
+    SetActivityDelegate,
+    SetActivityThreshold
 }

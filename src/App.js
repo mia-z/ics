@@ -9,38 +9,42 @@ import Status from "./Components/Status";
 import Mining from "./Components/Mining";
 import Exploration from "./Components/Exploration";
 import Woodcutting from "./Components/Woodcutting";
+import ActivityProgressDisplay from "./Components/SubComponents/ActivityProgressDisplay";
 import { Container, Col, Row } from "react-bootstrap";
 import { connect } from "react-redux";
 import "./styles/base.scss";
-import { StartTickSystem } from "./Systems/TickSystem";
 
 const App = (props) => {
-    StartTickSystem();
     return (
         <HashRouter>
             <Container>
                 <Row className="stretch" noGutters>
                     <Col md={3} className="left-column"> {/*LEFT COLUMN*/}
                         <Row id="banner" className="no-gutters">
-                            <Col>
-                                <Banner /> {/*BANNER SECTION*/}
+                            <Col> {/*BANNER SECTION*/}
+                                <Banner />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col> {/*STATUS SECTION*/}
+                                <Status />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col> {/*NAVBAR COLUMN*/}
+                                <Route exact path="*" render={(params) => <Navbar routeParams={params}/>}/>
                             </Col>
                         </Row>
                         <Row>
                             <Col>
-                                 <Status /> {/*STATUS SECTION*/}
-                            </Col>
-                        </Row>
-                        <Row className="h-75">
-                            <Col>
-                                <Route exact path="*" render={(params) => <Navbar routeParams={params}/>}/> {/*NAVBAR COLUMN*/}
+                                <ActivityProgressDisplay />
                             </Col>
                         </Row>
                     </Col>
                     <Col md={9} className="right-column"> {/*RIGHT COLUMN*/}
                         <Row> {/*TOP HEADER ROW*/}
                             <Col>
-                                <Header /> 
+                                <Header />
                             </Col>
                         </Row>
                         <Row> {/*CONTENT ROW*/}

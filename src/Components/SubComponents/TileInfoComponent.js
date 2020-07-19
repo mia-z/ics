@@ -2,19 +2,18 @@ import React from "react";
 import {Col, Row, Button, Container} from "react-bootstrap";
 import { TileStates } from "../../Objects/Tile"
 import Timer from "../../Objects/Timer";
-import { UpdateActivityTickers } from "../../Actions/GlobalStateActions";
+import { SetActivity } from "../../Actions/GlobalStateActions";
 import { connect } from "react-redux";
 import { Line } from "rc-progress";
 
 const mapStateToProps = (state) => {
     return {
-        activityTickers: state.GlobalState.activityTickers,
-        thisTicker: state.GlobalState.activityTickers.find(t => t.extra === `${state.ExplorationState.selectedTileCoords.x}-${state.ExplorationState.selectedTileCoords.y}`)
+        activityTimer: state.GlobalState.activityTickers,
     }
 }
 
 const mapDispatchToProps = {
-    UpdateActivityTickers
+    SetActivity
 }
 
 export const TileInfoComponent = (props) => {

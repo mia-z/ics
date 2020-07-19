@@ -16,7 +16,6 @@ export default class User {
             Ebony: 0
         };
         this.money = 0;
-        this.workers = 5;
     }
 
     //AddWorker = (worker = new Worker()) => this.workers.push(worker);

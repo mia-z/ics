@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { UpdateGrid, SelectTile, ExploreTile, ControlTile, UnselectTile, BuildHouse, AssignWorker } from "../Actions/ExplorationStateActions";
-import { UpdateWorkers } from "../Actions/GlobalStateActions";
+import { UpdateGrid, SelectTile, ExploreTile, ControlTile, UnselectTile } from "../Actions/ExplorationStateActions";
+import {  } from "../Actions/GlobalStateActions";
 import { Col, Row } from "react-bootstrap";
 import TileInfoComponent from "./SubComponents/TileInfoComponent";
 import TileComponent from "./SubComponents/TileComponent";
@@ -23,9 +23,6 @@ const mapDispatchToProps = {
     ExploreTile,
     ControlTile,
     UnselectTile,
-    BuildHouse,
-    AssignWorker,
-    UpdateWorkers
 }
 
 export const Exploration = (props) => {
@@ -45,15 +42,6 @@ export const Exploration = (props) => {
         props.ControlTile(x, y);
     }
 
-    const BuildHouse = (x, y) => {
-        props.BuildHouse();
-    }
-
-    const AssignWorker = () => {
-        props.AssignWorker();
-        props.UpdateWorkers(props.availableWorkers + 1);
-    }
-
     console.log(props.selectedTile);
     return(
         <>
@@ -70,7 +58,7 @@ export const Exploration = (props) => {
                 ))}
             </Col>
         </Row>
-        <TileInfoComponent tileInfo={props.selectedTile} controlThisTile={ControlTile} exploreThisTile={ExploreTile} buildHouseOnTile={BuildHouse} assignWorkerToTile={AssignWorker}/>
+        <TileInfoComponent tileInfo={props.selectedTile} controlThisTile={ControlTile} exploreThisTile={ExploreTile}/>
         </>
     );
 }
