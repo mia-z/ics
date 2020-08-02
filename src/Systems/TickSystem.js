@@ -1,18 +1,23 @@
 import store from "./../store";
-import { TickGlobalTimer, ResetGlobalTimer, TickActivityTimer, SetActivity, ResetActivityTimer } from "./../Actions/GlobalStateActions";
-import { ExploreTile } from "../Actions/ExplorationStateActions";
-import { RewardBroker } from "./../RewardBroker";
+import { TickGlobalTimer, ResetGlobalTimer, TickActivityTimer, ResetActivityTimer, StopActivityTimer } from "./../Actions/GlobalStateActions";
+import { ExploreTile, UpdateGatheringNode } from "../Actions/ExplorationStateActions";
+import { AddItem } from "../Actions/InventoryActions";
+import { GetItemFromNode } from "../ItemRepo";
 
 export const TickSystem = () => {
     let state = store.getState().GlobalState;
-    if (state.activityTimer.isRunning) {
+    if (state.activityIsRunning) {
         store.dispatch(TickGlobalTimer());
-        if (state.activityTimer.tick >= state.activityTimer.resetTick) {
+        if (state.activityTick >= state.activityReset) {
             //console.log(timer.extra);
-            RewardBroker(state.activityTimer.activity, { modifiers: { ...state.activityTimer } });
-            if (state.activityTimer.activity === "Explore") {
-                state.activityTimer.onDoneDelegate();
-                return false;
+            RewardBroker(state.activity, state.activityParameters);
+            switch (state.activity) {
+                case "Exploring":
+                    store.dispatch(ExploreTile(state.activityParameters.x, state.activityParameters.y));
+                    return store.dispatch(StopActivityTimer());
+                case "Gathering":
+                    store.dispatch(UpdateGatheringNode(state.activityParameters.tileX, state.activityParameters.tileY,1, state.activityParameters.arrayIndex, state.activityParameters.outerArrayIndex))
+                    break;
             }
             return store.dispatch(ResetActivityTimer());
         } else store.dispatch(TickActivityTimer());
@@ -21,6 +26,14 @@ export const TickSystem = () => {
             store.dispatch(ResetGlobalTimer());
             //console.log("completed this round of tick", state.activityTickers);
         }
+    }
+}
+
+const RewardBroker = (activity, params) => {
+    switch(activity) {
+        case "Gathering":
+            let item = GetItemFromNode(params.name);
+            return store.dispatch(AddItem(item));
     }
 }
 

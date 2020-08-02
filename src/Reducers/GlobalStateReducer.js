@@ -4,10 +4,13 @@ import User from "../Objects/User";
 
 const initialState = {
     globalTimer: new Timer("global"),
-    activityTimer: new Timer("Idle", null),
-    exploreStats: {
-        Villages: 0, Farmlands: 0, Forest: 0, Desert: 0
-    },
+    activityTick: 0,
+    activity: "Idle",
+    activityDetails: "",
+    activityReset: 100,
+    activityDelegate: null,
+    activityParameters: {},
+    activityIsRunning: false,
     user: new User()
 };
 
@@ -26,80 +29,49 @@ export const GlobalStateReducer = (state = initialState, action) => {
 
     if (action.type === types.START_ACTIVITY_TIMER) {
         return {...state,
-            activityTimer: {...state.activityTimer, isRunning: true}
-        };
+            activityIsRunning: true};
     }
 
     if (action.type === types.TICK_ACTIVITY_TIMER) {
         return {...state,
-            activityTimer: {...state.activityTimer, tick: state.activityTimer.tick += 1}
-        };
+            activityTick: state.activityTick += 1}
     }
 
     if (action.type === types.RESET_ACTIVITY_TIMER) {
         return {...state,
-            activityTimer: {...state.activityTimer, tick: 0}
-        };
+            activityTick : 0};
     }
 
     if (action.type === types.STOP_ACTIVITY_TIMER) {
         return {...state,
-            activityTimer: {...state.activityTimer, isRunning: false, tick: 0, activity: "Idle", extra: null}
-        };
+            activity: "Idle", activityIsRunning: false, activityTick: 0, activityParameters: null, activityDetails: ""}
     }
 
     if (action.type === types.SET_ACTIVITY) {
         return {...state,
-            activityTimer: {...state.activityTimer, activity: action.payload}
-        };
+            activity: action.payload};
     }
 
     if (action.type === types.SET_ACTIVITY_PARAMS) {
         return {...state,
-            activityTimer: {...state.activityTimer, extra: action.payload}
-        };
+            activityParameters: action.payload};
     }
 
     if (action.type === types.SET_ACTIVITY_DELEGATE) {
         return {...state,
-            activityTimer: {...state.activityTimer, onDoneDelegate: action.payload}
-        };
+            activityDelegate: action.payload};
     }
 
     if (action.type === types.SET_ACTIVITY_THRESHOLD) {
         return {...state,
-            activityTimer: {...state.activityTimer, resetTick: action.payload}
-        };
+            activityReset: action.payload}
     }
 
-    if (action.type === types.APPLY_REWARD) {
-        switch(action.payload.activity)
-        {
-            case "Explore": 
-                return ExploreRewardState(state, action.payload);
-            case "Mining":
-                return MiningRewardState(state, action.payload);
-            case "Woodcutting":
-                return WoodcuttingRewardState(state, action.payload);
-            default: return console.log("@@ERROR AT APPLY_REWARD ACTION IN GlobalStateReducer: action.payload.activity IS INCORRECT");
-        }
+    if (action.type === types.SET_ACTIVITY_DETAILS) {
+        return {...state,
+            activityDetails: action.payload}
     }
     return state;
-};
-
-const ExploreRewardState = (state, payload) => {
-    //May need this later
-    return { ...state };
-}
-
-const MiningRewardState = (state, payload) => {
-    state.user.AddOre(payload.modifiers.extra, payload.modifiers.activeWorkers);
-    return {...state, user: {...state.user } };
-}
-
-const WoodcuttingRewardState = (state, payload) => {
-    state.user.AddWood(payload.modifiers.extra, payload.modifiers.activeWorkers);
-    return {...state, user: {...state.user } };
 }
 
 export default GlobalStateReducer;

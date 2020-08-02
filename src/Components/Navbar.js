@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from "react-redux";
 import "../styles/nav.scss";
-import { GetSvg } from "../ImageRepo";
+import { GetSvg, GetImages } from "../ImageRepo";
 import "bootstrap/dist/css/bootstrap.css"
 import NavButton from "./SubComponents/NavButton";
 
 export const Navbar = (props) => {
-    const icons = GetSvg(sections);
+    const icons = GetImages(sections);
     return(
     <nav>
         {icons.map((name, index) => (
@@ -18,6 +18,6 @@ export const Navbar = (props) => {
     );
 }
 
-const sections = [ "Home", "Stats", "Exploration", "Woodcutting", "Mining" ];
+const sections = [ "Home", "Stats", "Inventory", "Exploration", "Gathering" ];
 
 export default connect()(Navbar);

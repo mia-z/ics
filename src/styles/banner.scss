@@ -1,7 +1,11 @@
-h2 {
-    text-align: center;
-    color: whitesmoke;
-}
+@import "vars";
+
+
  #banner {
-     background-color: #3b6978;
+     background-color: $dark-slate;
+     h2 {
+         text-align: center;
+         color: whitesmoke;
+         font-family: $roboto;
+     }
  }

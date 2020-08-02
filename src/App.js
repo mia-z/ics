@@ -5,10 +5,10 @@ import Home from "./Components/Home";
 import Stats from "./Components/Stats";
 import Navbar from "./Components/Navbar";
 import Banner from "./Components/Banner";
+import Inventory from "./Components/Inventory";
 import Status from "./Components/Status";
-import Mining from "./Components/Mining";
 import Exploration from "./Components/Exploration";
-import Woodcutting from "./Components/Woodcutting";
+import Gathering from "./Components/Gathering";
 import ActivityProgressDisplay from "./Components/SubComponents/ActivityProgressDisplay";
 import { Container, Col, Row } from "react-bootstrap";
 import { connect } from "react-redux";
@@ -20,41 +20,27 @@ const App = (props) => {
             <Container>
                 <Row className="stretch" noGutters>
                     <Col md={3} className="left-column"> {/*LEFT COLUMN*/}
-                        <Row id="banner" className="no-gutters">
-                            <Col> {/*BANNER SECTION*/}
-                                <Banner />
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col> {/*STATUS SECTION*/}
-                                <Status />
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col> {/*NAVBAR COLUMN*/}
-                                <Route exact path="*" render={(params) => <Navbar routeParams={params}/>}/>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <ActivityProgressDisplay />
-                            </Col>
-                        </Row>
+                        <div id="banner" className="no-gutters">
+                            <Banner />
+                        </div>
+                        <Status />
+                        <Route exact path="*" render={(params) => <Navbar routeParams={params}/>}/>
+                        <ActivityProgressDisplay />
                     </Col>
                     <Col md={9} className="right-column"> {/*RIGHT COLUMN*/}
-                        <Row> {/*TOP HEADER ROW*/}
+                        <Row>
                             <Col>
                                 <Header />
                             </Col>
                         </Row>
-                        <Row> {/*CONTENT ROW*/}
+                        <Row id="content-right">
                             <Col>
                                 <Route exact path="/" component={Home} />
                                 <Route path="/Home" component={Home} />
                                 <Route path="/Stats" component={Stats} />
+                                <Route path="/Inventory" render={(params) => <Inventory routeParams={params}/>}/>
                                 <Route path="/Exploration" render={(params) => <Exploration routeParams={params} />}/>
-                                <Route path="/Woodcutting" render={(params) => <Woodcutting routeParams={params} />}/>
-                                <Route path="/Mining" render={(params) => <Mining routeParams={params} />}/>
+                                <Route path="/Gathering" render={(params) => <Gathering routeParams={params} />}/>
                             </Col>
                         </Row>
                     </Col>

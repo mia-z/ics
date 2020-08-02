@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
 import { UpdateGrid, SelectTile, ExploreTile, ControlTile, UnselectTile } from "../Actions/ExplorationStateActions";
-import {  } from "../Actions/GlobalStateActions";
 import { Col, Row } from "react-bootstrap";
 import TileInfoComponent from "./SubComponents/TileInfoComponent";
 import TileComponent from "./SubComponents/TileComponent";
@@ -12,8 +11,7 @@ const mapStateToProps = (state) => {
     return { 
         exploration: state.ExplorationState.explorationState,
         prevCoords: state.ExplorationState.selectedTileCoords,
-        selectedTile: state.ExplorationState.explorationState.flat(1).find(x => x.selected) || null,
-        availableWorkers: state.GlobalState.user.workers
+        selectedTile: state.ExplorationState.explorationState.flat(1).find(x => x.selected) || null
     }
 }
 
@@ -32,17 +30,6 @@ export const Exploration = (props) => {
         props.SelectTile(x, y);
     }
 
-    const ExploreTile = (x, y) => {
-        console.log("exploring");
-        props.ExploreTile(x, y);
-    }
-
-    const ControlTile = (x, y) => {
-        console.log("controlling tile");
-        props.ControlTile(x, y);
-    }
-
-    console.log(props.selectedTile);
     return(
         <>
         <Row className="justify-content-center my-2 no-gutters">
@@ -58,7 +45,7 @@ export const Exploration = (props) => {
                 ))}
             </Col>
         </Row>
-        <TileInfoComponent tileInfo={props.selectedTile} controlThisTile={ControlTile} exploreThisTile={ExploreTile}/>
+        <TileInfoComponent tileInfo={props.selectedTile}/>
         </>
     );
 }

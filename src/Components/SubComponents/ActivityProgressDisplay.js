@@ -6,18 +6,18 @@ import { Line } from "rc-progress";
 
 const mapStateToProps = (state) => {
     return {
-        activity: state.GlobalState.activityTimer.activity,
-        tick: state.GlobalState.activityTimer.tick,
-        resetTick: state.GlobalState.activityTimer.resetTick,
-        extra: state.GlobalState.activityTimer.extra
+        activity: state.GlobalState.activity,
+        tick: state.GlobalState.activityTick,
+        resetTick: state.GlobalState.activityReset,
+        details: state.GlobalState.activityDetails
     }
 }
 
 const percent = (value, total) => (value / total) * 100;
 
-export const ActivityProgressDisplay = ({tick, resetTick, activity, extra}) => {
+export const ActivityProgressDisplay = ({tick, resetTick, activity, details}) => {
     return(
-        <Container className={"activity-progress-display mt-5"}>
+        <Container className={"activity-progress-display my-4"}>
             <Row className={"activity-item"}>
                 <Col>
                     Current Activity:
@@ -30,7 +30,7 @@ export const ActivityProgressDisplay = ({tick, resetTick, activity, extra}) => {
             </Row>
             <Row className={"activity-item"}>
                 <Col>
-                    {extra}
+                    {details}
                 </Col>
             </Row>
             <Row className={"activity-item"}>

@@ -8,10 +8,6 @@ const ResetGlobalTimer = () => {
     return {type: types.RESET_GLOBAL_TIMER };
 }
 
-const ApplyReward = (activity, extraArgs) => {
-    return {type: types.APPLY_REWARD, payload: { activity, ...extraArgs } };
-}
-
 const TickActivityTimer = () => {
     return {type: types.TICK_ACTIVITY_TIMER};
 }
@@ -44,10 +40,13 @@ const SetActivityThreshold = (payload) => {
     return {type: types.SET_ACTIVITY_THRESHOLD, payload};
 }
 
+const SetActivityDetails = (payload) => {
+    return {type: types.SET_ACTIVITY_DETAILS, payload};
+}
+
 export {
     TickGlobalTimer,
     ResetGlobalTimer,
-    ApplyReward,
     TickActivityTimer,
     ResetActivityTimer,
     StopActivityTimer,
@@ -55,5 +54,6 @@ export {
     SetActivity,
     SetActivityParams,
     SetActivityDelegate,
-    SetActivityThreshold
+    SetActivityThreshold,
+    SetActivityDetails
 }

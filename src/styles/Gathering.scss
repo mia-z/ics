@@ -1,0 +1,136 @@
+@import "base";
+@import "vars";
+
+.node-container {
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 5px;
+}
+
+@mixin node-container-title($color) {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: $color;
+    padding: 5px 15px;
+
+    .node-container-title-text {
+        text-align: left;
+    }
+
+    .node-container-check {
+        /*hello*/
+    }
+}
+
+@mixin node-container-content($color) {
+    padding: 10px;
+    background-color: $color;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+@mixin root-node-item($imageName) {
+    .node-item {
+        position: relative;
+        width: 80px;
+        height: 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 3px 5px;
+
+        img {
+            text-align: center;
+            width: 90%;
+        }
+
+        .overlay {
+            display: inline-block;
+            position: absolute;
+            z-index: 100;
+            background: $secondhand-grey;
+            padding: 5px 10px;
+            border-radius: 28% 50% 50% 28%;
+            left: 0;
+            color: white;
+        }
+
+        &:hover img {
+            filter: brightness(150%);
+        }
+
+        &:active img {
+            filter: brightness(200%);
+        }
+
+        &:hover:after {
+            position: relative;
+            float: right;
+            top: -50px;
+            left: 30px;
+            z-index: 101;
+            height: 1px;
+            width: 1px;
+            content: url($imageName);
+            transform-origin: center;
+            transform: scaleX(-0.5) scaleY(0.5) rotate(-25deg);
+        }
+    }
+
+    .node-item.active {
+        width: 80px;
+        height: 80px;
+
+        &:after {
+            position: relative;
+            float: right;
+            top: -50px;
+            left: 30px;
+            z-index: 101;
+            height: 1px;
+            width: 1px;
+            content: url($imageName);
+            transform-origin: center;
+            transform: scaleX(-0.5) scaleY(0.5) rotate(-25deg);
+            animation: GatheringAnimation linear 2s infinite;
+        }
+    }
+
+}
+
+
+.woodcutting-title {
+    @include node-container-title($flat-green-1)
+}
+
+.woodcutting-node-container {
+    @include node-container-content($flat-green-2);
+    @include root-node-item("Hatchet.png");
+}
+
+.mining-title {
+    @include node-container-title($flat-blue-1);
+}
+
+.mining-node-container {
+    @include node-container-content($flat-blue-2);
+    @include root-node-item("Pickaxe.png");
+}
+
+@keyframes GatheringAnimation {
+    0% {
+        transform: scaleX(-0.5) scaleY(0.5)  rotate(-25deg);
+    }
+
+    50% {
+        transform: scaleX(-0.6) scaleY(0.6)  rotate(-25deg);
+    }
+
+    100% {
+        transform: scaleX(-0.5) scaleY(0.5)  rotate(-25deg);
+    }
+}
