@@ -1,17 +1,30 @@
 import { connect } from "react-redux";
 import Node from "./Node";
 import React from "react";
+import { SetActivityParams } from "../../Actions/GlobalStateActions";
 
 const mapStateToProps = (state) => {
     return {
-        activityTimer: state.GlobalState.activityTimer,
-        tile: state.ExplorationState.selectedTile
+        activityParameters: state.GlobalState.activityParameters
     }
 }
 
-const NodeContainer = ({type, nodeArray, handleClick, outerArrayIndex}) => {
+const mapDispatchToProps = {
+    SetActivityParams,
+}
+
+const NodeContainer = ({type, nodeArray, handleClick, outerArrayIndex, activityParameters, SetActivityParams}) => {
     const TitleClass = () => `${type.toLowerCase()}-title`;
     const ContainerClass = () => `${type.toLowerCase()}-node-container`;
+
+    const HandleChecked = (event, name) => {
+        if (event.currentTarget.checked) {
+            SetActivityParams({...activityParameters, name: name,  continue: true});
+        }
+        else {
+            SetActivityParams({...activityParameters, continue: false});
+        }
+    }
 
     return(
         <div className={"node-container"}>
@@ -20,7 +33,7 @@ const NodeContainer = ({type, nodeArray, handleClick, outerArrayIndex}) => {
                     {nodeArray[0].name}
                 </div>
                 <div className={"node-container-check"}>
-                    <label>Continue gathering available nodes&nbsp;<input type={"checkbox"}/></label>
+                    <label>Continue gathering available nodes&nbsp;<input checked={activityParameters.continue && activityParameters.name === nodeArray[0].name} type={"checkbox"} onChange={e => HandleChecked(e, nodeArray[0].name)}/></label>
                 </div>
             </div>
             <div className={ContainerClass()}>
@@ -32,4 +45,4 @@ const NodeContainer = ({type, nodeArray, handleClick, outerArrayIndex}) => {
     )
 }
 
-export default connect(mapStateToProps, null)(NodeContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(NodeContainer);

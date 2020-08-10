@@ -63,8 +63,8 @@
             filter: brightness(150%);
         }
 
-        &:active img {
-            filter: brightness(200%);
+        &.depleted img {
+            filter: grayscale(150%) brightness(50%);
         }
 
         &:hover:after {
@@ -79,13 +79,8 @@
             transform-origin: center;
             transform: scaleX(-0.5) scaleY(0.5) rotate(-25deg);
         }
-    }
 
-    .node-item.active {
-        width: 80px;
-        height: 80px;
-
-        &:after {
+        &.active:after {
             position: relative;
             float: right;
             top: -50px;
@@ -98,8 +93,11 @@
             transform: scaleX(-0.5) scaleY(0.5) rotate(-25deg);
             animation: GatheringAnimation linear 2s infinite;
         }
-    }
 
+        &.depleted:hover:after {
+            content: none;
+        }
+    }
 }
 
 

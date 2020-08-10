@@ -1,11 +1,15 @@
 @import "vars";
 
+.banner {
+    background-color: $dark-slate;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 
- #banner {
-     background-color: $dark-slate;
-     h2 {
-         text-align: center;
-         color: whitesmoke;
-         font-family: $roboto;
-     }
- }
+    h2 {
+        margin: auto 0;
+        text-align: center;
+        color: whitesmoke;
+        font-family: $roboto;
+    }
+}

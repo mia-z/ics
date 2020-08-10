@@ -1,22 +1,54 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Montserrat:wght@500;600&family=Roboto:wght@400;500&family=Source+Sans+Pro:wght@400;600&display=swap');
 @import "vars";
 
-.left-column {
-    background-color: $secondhand-grey;
+.root-container {
+    max-width: 1140px;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: row wrap;
+    box-sizing: border-box;
+
+    & > div {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .left {
+        width: 25%;
+        background-color: $secondhand-grey;
+    }
+
+    .right {
+        width: 75%;
+        background-color: rgba(228,227,227,0.6);
+    }
+
+    .header {
+        height: 50px;
+    }
+
+    .content {
+        min-height: 90vh;
+    }
+
+    .left.content {
+        flex-direction: column;
+    }
+}
+
+.game-view-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.box {
     display: flex;
     flex-flow: column;
-}
-
-.right-column {
-    background-color: rgba(228,227,227,0.6);
-}
-
-.stretch {
-    height: 90vh;
-    box-shadow: 0 10px 15px 5px rgba(46,46,46,0.4);
-}
-
-#content-right {
-    max-height: 90vh;
-    overflow: auto;
+    background: $light-grey;
+    margin: 0 auto;
+    padding: 5px 10px;
+    border-radius: 2px;
 }

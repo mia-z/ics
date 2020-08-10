@@ -44,7 +44,7 @@ export const GlobalStateReducer = (state = initialState, action) => {
 
     if (action.type === types.STOP_ACTIVITY_TIMER) {
         return {...state,
-            activity: "Idle", activityIsRunning: false, activityTick: 0, activityParameters: null, activityDetails: ""}
+            activity: "Idle", activityIsRunning: false, activityTick: 0, activityParameters: {}, activityDetails: ""}
     }
 
     if (action.type === types.SET_ACTIVITY) {

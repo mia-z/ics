@@ -187,7 +187,6 @@ export const TileStates = {
     UNAVAILABLE: "UNAVAILABLE",
     EXPLORED: "EXPLORED",
     UNEXPLORED: "UNEXPLORED",
-    CONTROLLED: "CONTROLLED"
 }
 
 export default Tile;

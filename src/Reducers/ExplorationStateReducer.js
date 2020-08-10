@@ -54,9 +54,10 @@ export const ExplorationStateReducer = (state = initialState, action) => {
 
     if (action.type === types.UPDATE_GATHERING_NODE) {
         let newExplorationState = state.explorationState;
-        let newNodes = {...newExplorationState[action.y][action.x].gatheringNodes[action.outerArrayIndex][action.arrayIndex]};   //This is really ugly and should be refactored when im less sleepy
-        newNodes.health = newNodes.health - action.amount;                                                                       //This is really ugly and should be refactored when im less sleepy
-        newExplorationState[action.y][action.x].gatheringNodes[action.outerArrayIndex][action.arrayIndex] = newNodes;            //This is really ugly and should be refactored when im less sleepy
+        let newNodes = {...newExplorationState[action.y][action.x].gatheringNodes[action.outerArrayIndex][action.arrayIndex]};
+        newNodes.health = newNodes.health - action.amount;
+        newExplorationState[action.y][action.x].gatheringNodes[action.outerArrayIndex][action.arrayIndex] = newNodes;
+
         return {...state,
             explorationState: [...newExplorationState], selectedTile: {...newExplorationState[action.y][action.x]} };
     }

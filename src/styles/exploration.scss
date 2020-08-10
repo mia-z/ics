@@ -1,37 +1,126 @@
+@import "vars";
+
 .explore-grid-container {
+    padding: 10px;
+    margin: 0 auto;
+    position: relative;
     display: flex;
     flex-flow: column;
-    border: 5px double #4d4d4d;
-    border-radius: 1.5%
+    background: $light-grey;
+    border-radius: 2px;
+
+    .explore-grid-row {
+        display: flex;
+        flex-flow: row;
+        justify-content: center;
+
+        .explore-grid-col {
+            flex-flow: row;
+
+            .tile {
+                height: 40px;
+                width: 40px;
+                border: 2px dashed black;
+
+                &.animate {
+                    border: none;
+                    background-image: linear-gradient(90deg, whitesmoke 50%, transparent 50%), linear-gradient(90deg, whitesmoke 50%, transparent 50%), linear-gradient(0deg, whitesmoke 50%, transparent 50%), linear-gradient(0deg, whitesmoke 50%, transparent 50%);
+                    background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+                    background-size: 13px 3px, 13px 3px, 3px 13px, 3px 13px;
+                    background-position: left top, right bottom, left bottom, right   top;
+                    animation: border-dance 1s infinite linear;
+                }
+
+                &.unexplored {
+                    background-color: $flat-red-2;
+                }
+
+                &.unexplored:hover {
+                    background-color: $flat-red-1;
+                }
+
+                &.explored {
+                    background-color: $flat-green-4;
+                }
+
+                &.explored:hover {
+                    background-color: $flat-green-3;
+                }
+
+                &.unavailable {
+                    background-color: $deep-grey;
+                }
+
+                &.unavailable:hover {
+                    background-color: $secondhand-grey;
+                }
+            }
+
+            @keyframes border-dance {
+                0% {
+                    background-position: 0 0, 100% 100%, 0 100%, 100% 0;
+                }
+                100% {
+                    background-position: 100% 0, 0 100%, 0 0, 100% 100%;
+                }
+            }
+        }
+    }
 }
 
-.explore-grid-row {
+.tile-info {
     display: flex;
-    flex-flow: row;
-}
+    flex-flow: column;
+    background: $light-grey;
+    margin: 0 auto;
+    padding: 5px 10px;
+    box-shadow: inset 0px 10px 10px -12px rgba(117,117,117,1);
+    border-radius: 2px;
 
-.explore-grid-col {
-    flex-flow: row;
-}
+    .text {
+        font-size: 1.2rem;
 
-.animate-selected {
-    animation: filter-animation 1s infinite;
-}
+        &.medium {
+            font-size: 1.5rem;
+        }
 
-h5, h4, h3 {
-    text-align: center;
-}
-
-@keyframes filter-animation {
-    0% {
-        border: 0.1px solid whitesmoke;
+        &.center {
+            text-align: center;
+        }
     }
 
-    50% {
-        border: 3px solid whitesmoke;
-    }
+    button {
+        text-decoration: none;
+        margin: 0 auto;
+        width: 75%;
+        padding: 2px 4px;
+        border-radius: 4px;
+        border: 2px solid $dark-slate;
+        transition: linear 100ms;
 
-    100% {
-        border: 0.1px solid whitesmoke;
+        &.red:hover {
+            background: $flat-orange-3;
+        }
+
+        &.red, &.red:active {
+            background: $flat-red-1;
+        }
+
+        &.blue:hover {
+            background: $flat-blue-1;
+        }
+
+        &.blue, &.blue:active {
+            background: $flat-blue-2;
+        }
+
+        &.disabled:hover, &.disabled, &.disabled:active {
+            background: $dark-slate;
+        }
+
+        .button-text {
+            color: $whitish;
+            font-family: $monster-rat;
+        }
     }
 }

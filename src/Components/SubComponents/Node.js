@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import React from "react";
+import { useAlert } from "react-alert";
 
 const mapStateToProps = (state) => {
     return {
@@ -9,6 +10,8 @@ const mapStateToProps = (state) => {
 }
 
 const Node = ({nodeProps, index, params, tile, handleClick, outerArrayIndex}) => {
+    const alert = useAlert();
+
     const GetIcon = (type) => {
         switch (type) {
             case "Mining": return `${process.env.PUBLIC_URL}/Assets/OreRock.png`;
@@ -17,10 +20,19 @@ const Node = ({nodeProps, index, params, tile, handleClick, outerArrayIndex}) =>
         }
     }
 
+    const isActive = () => params.arrayIndex === index && params.name === nodeProps.name ? "active" : "";
+
+    const isDepleted = () => nodeProps.health < 1 ? "depleted" : "";
+
+    const ClickDelegate = () =>
+        nodeProps.health < 1
+            ? () => alert.show("This node is depleted!")
+            : () => handleClick(nodeProps.name, index, nodeProps.resetTick, outerArrayIndex);
+
     return(
-        <div className={!params ? "node-item" : params.arrayIndex === index && params.name === nodeProps.name ? "node-item active" : "node-item"}
+        <div className={`node-item ${isActive()} ${isDepleted()}`}
              style={{background: `url("${process.env.PUBLIC_URL}/Assets/${tile.biome}.svg") no-repeat`}}
-             onClick={() => handleClick(nodeProps.name, index, nodeProps.resetTick, outerArrayIndex)}
+             onClick={ClickDelegate()}
             >
 
             <img src={GetIcon(nodeProps.type)} />

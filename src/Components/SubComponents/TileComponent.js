@@ -7,55 +7,30 @@ const mapStateToProps = (state) => {
     return {
         params: state.GlobalState.activityParameters,
         tick: state.GlobalState.activityTick,
-        reset: state.GlobalState.activityReset
+        reset: state.GlobalState.activityReset,
+        selectedTile: state.ExplorationState.selectedTileCoords
     }
 }
 
-const mapDispatchToProps = {
 
-}
-
-export const TileComponent = ({params, tick, reset, state, selected, coords, click}) => {
-    const [mouseOver, setMouseOver] = useState(false);
-
-    let initialStyle = {
-        height: "40px",
-        width: "40px",
-        transition: "0.1s"
-    }
+export const TileComponent = ({params, tick, reset, state, coords, click, selectedTile}) => {
 
     const percent = (current, max) => (current / max) * 100;
 
-    const animateSelected = (selected) => selected ? "animate-selected" : "";
+    const isSelected = () => selectedTile.x === coords.x && selectedTile.y === coords.y ? "animate" : "";
 
-    const SetStyle = () => {
-        if (mouseOver) {
-            switch(state) {
-                case TileStates.UNAVAILABLE: return {...initialStyle, backgroundColor: "none"};
-                case TileStates.CONTROLLED: return {...initialStyle, backgroundColor: "#c9f1c9"};
-                case TileStates.UNEXPLORED: return {...initialStyle, backgroundColor: "#ff8f66", filter: "none"};
-                case TileStates.EXPLORED: return {...initialStyle, backgroundColor: "#478547", filter: "none"};
-                default: return {...initialStyle, backgroundColor: "whitesmoke", filter: "none"};
-            }
-        }
-        if(!mouseOver) {
-            switch(state) {
-                case TileStates.UNAVAILABLE: return {...initialStyle, backgroundColor: "none"};
-                case TileStates.CONTROLLED: return {...initialStyle, backgroundColor: "#77dd77"};
-                case TileStates.UNEXPLORED: return {...initialStyle, backgroundColor: "#ff4500"};
-                case TileStates.EXPLORED: return {...initialStyle, backgroundColor: "#305830"};
-                default: return {...initialStyle, backgroundColor: "white"};
-            }
+    const GetStateStyle = () => {
+        switch(state) {
+            case TileStates.UNAVAILABLE: return "unavailable";
+            case TileStates.UNEXPLORED: return "unexplored";
+            case TileStates.EXPLORED: return "explored";
+            default: return "";
         }
     }
 
     return(
-        <div style={SetStyle()}
-            className={animateSelected(selected)}
-            onClick={() => click(coords.x, coords.y)}
-            onMouseOver={() => setMouseOver(true)}
-            onMouseOut={() => setMouseOver(false)}
-        >
+        <div className={`tile ${GetStateStyle()} ${isSelected()}`}
+            onClick={() => click(coords.x, coords.y)}>
             {params && params.x=== coords.x && params.y === coords.y &&
                 <Circle percent={percent(tick, reset)} strokeWidth="20" strokeColor="#333"/>
             }
@@ -63,4 +38,4 @@ export const TileComponent = ({params, tick, reset, state, selected, coords, cli
     );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TileComponent);
+export default connect(mapStateToProps, null)(TileComponent);

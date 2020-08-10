@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
 import { UpdateGrid, SelectTile, ExploreTile, ControlTile, UnselectTile } from "../Actions/ExplorationStateActions";
-import { Col, Row } from "react-bootstrap";
 import TileInfoComponent from "./SubComponents/TileInfoComponent";
 import TileComponent from "./SubComponents/TileComponent";
 import { TileStates } from "../Objects/Tile"
@@ -31,9 +30,8 @@ export const Exploration = (props) => {
     }
 
     return(
-        <>
-        <Row className="justify-content-center my-2 no-gutters">
-            <Col md={8} className="explore-grid-container p-2">
+        <div className="game-view-container">
+            <div className="explore-grid-container">
                 {props.exploration.map((row, index) => (
                     <div key={index} className="explore-grid-row">
                         {row.map((col, index) => (
@@ -43,10 +41,9 @@ export const Exploration = (props) => {
                         ))}
                     </div>
                 ))}
-            </Col>
-        </Row>
-        <TileInfoComponent tileInfo={props.selectedTile}/>
-        </>
+            </div>
+            <TileInfoComponent />
+        </div>
     );
 }
 

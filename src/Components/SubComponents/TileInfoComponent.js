@@ -1,7 +1,6 @@
 import React from "react";
 import store from "./../../store";
 import { batch } from "react-redux";
-import { Col, Row, Button, Container } from "react-bootstrap";
 import { TileStates } from "../../Objects/Tile"
 import { ResetActivityTimer, SetActivity, SetActivityParams, SetActivityThreshold, StartActivityTimer, StopActivityTimer, SetActivityDelegate, SetActivityDetails, } from "../../Actions/GlobalStateActions";
 import { connect } from "react-redux";
@@ -10,7 +9,8 @@ const mapStateToProps = (state) => {
     return {
         activity: state.GlobalState.activity,
         isRunning: state.GlobalState.activityIsRunning,
-        params: state.GlobalState.activityParameters
+        params: state.GlobalState.activityParameters,
+        tileInfo: state.ExplorationState.selectedTile
     }
 }
 
@@ -31,6 +31,9 @@ export const TileInfoComponent = ({activity, isRunning, params, tileInfo, SetAct
     }
 
     const HandleExploreClick = (location) => {
+        if (activity === "Exploring" && isRunning && !IsExploringThisTile())
+            return;
+
         if (IsExploringThisTile()) {
             return StopActivityTimer();
         }
@@ -57,57 +60,61 @@ export const TileInfoComponent = ({activity, isRunning, params, tileInfo, SetAct
         });
     }
 
+    const SetClass = () => {
+        let str = "";
+        if (activity === "Exploring" && isRunning && !IsExploringThisTile()) str += "disabled ";
+        if (activity === "Exploring" && isRunning) str += "red";
+            else str += "blue";
+        return str;
+    }
+
+    console.log(tileInfo);
+
     if (tileInfo) {
         switch (tileInfo.state) {
             case TileStates.UNEXPLORED:
                 return (
-                    <div>
-                        <Row>
-                            <Col>
-                                <h4 className="text-center">{tileInfo.state} - {tileInfo.biome}</h4>
-                            </Col>
-                        </Row>
-                        <Container>
-                            <Row className="justify-content-center">
-                                <Col md={4} className="px-3 py-1">
-                                    <Button
-                                        block
-                                        disabled={activity === "Exploring" && isRunning && !IsExploringThisTile()}
-                                        variant={activity === "Exploring" && isRunning && IsExploringThisTile() ? "danger" : "primary"}
-                                        onClick={() => HandleExploreClick(tileInfo.biome)}
-                                    >{activity === "Exploring" && isRunning && IsExploringThisTile() ? "Cancel" : "Start Exploring"}</Button>
-                                </Col>
-                            </Row>
-                            { activity === "Exploring" && isRunning && IsExploringThisTile() &&
-                            <div className="progress-container">
-                                <h5>Exploring...</h5>
-                            </div>
-                            }
-                        </Container>
+                    <div className={"tile-info"}>
+                        <div className="text medium">{tileInfo.state} - {tileInfo.biome}</div>
+                            <button onClick={() => HandleExploreClick(tileInfo.biome)} className={SetClass()} >
+                                <div className={"button-text"}>{
+                                    activity === "Exploring" && isRunning && IsExploringThisTile() ? "Cancel" :
+                                        activity === "Exploring" && isRunning && !IsExploringThisTile() ? "Exploring other tile!" :
+                                            "Start Exploring"
+                                }</div>
+                            </button>
+
+                        { activity === "Exploring" && isRunning && IsExploringThisTile() &&
+                        <div className="progress-container">
+                            <div className={"text center"}>Exploring...</div>
+                        </div>
+                        }
                     </div>
                 );
 
             case TileStates.EXPLORED:
                 return (
-                    <div>
-                        <Row>
-                            <Col>
-                                <h4>{tileInfo.state}</h4>
-                            </Col>
-                        </Row>
+                    <div className={"tile-info"}>
+                        <div className={"text medium center"}>{tileInfo.biome}</div>
+                        <div className={"text"}>Available Resources:</div>
+                        {tileInfo.gatheringNodes.map(nodes => (
+                            <div key={nodes[0].name} className={"text center"}>
+                                {nodes[0].name}:&nbsp;
+                                {nodes.reduce((accumulator, item) => {
+                                    return accumulator + item.health;
+                                }, 0)}
+                            </div>
+                        ))}
                     </div>
                 );
+
             default:
                 return("you shouldnt EVER see this, im satisfying the ESLint");
         }
     } else
         return (
-            <div>
-                <Row>
-                    <Col>
-                        <h4>Select a tile to see more info</h4>
-                    </Col>
-                </Row>
+            <div className={"tile-info"}>
+                <div className={"text medium"}>Select a tile above to see more info</div>
             </div>
         );
 }
