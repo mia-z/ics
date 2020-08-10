@@ -30,7 +30,7 @@ const Node = ({nodeProps, index, params, tile, handleClick, outerArrayIndex}) =>
             : () => handleClick(nodeProps.name, index, nodeProps.resetTick, outerArrayIndex);
 
     return(
-        <div className={`node-item ${isActive()} ${isDepleted()}`}
+        <div className={`interactable-item ${isActive()} ${isDepleted()}`}
              style={{background: `url("${process.env.PUBLIC_URL}/Assets/${tile.biome}.svg") no-repeat`}}
              onClick={ClickDelegate()}
             >
