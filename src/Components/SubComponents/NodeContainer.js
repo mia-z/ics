@@ -27,12 +27,12 @@ const NodeContainer = ({type, nodeArray, handleClick, outerArrayIndex, activityP
     }
 
     return(
-        <div className={"gathering-interactable-container"}>
+        <div className={"node-container"}>
             <div className={TitleClass()}>
-                <div className={"interactable-container-title-text"}>
+                <div className={"node-container-title-text"}>
                     {nodeArray[0].name}
                 </div>
-                <div className={"interactable-container-check"}>
+                <div className={"node-container-check"}>
                     <label>Continue gathering available nodes&nbsp;<input checked={activityParameters.continue && activityParameters.name === nodeArray[0].name} type={"checkbox"} onChange={e => HandleChecked(e, nodeArray[0].name)}/></label>
                 </div>
             </div>

@@ -2,6 +2,7 @@ import store from "./../store";
 import { TickGlobalTimer, ResetGlobalTimer, TickActivityTimer, ResetActivityTimer, StopActivityTimer, SetActivityParams } from "../Actions/GlobalStateActions";
 import { ExploreTile, UpdateGatheringNode } from "../Actions/ExplorationStateActions";
 import { AddItem } from "../Actions/InventoryActions";
+import { ApplyWoodcuttingXp, ApplyMiningXp, ResetHasLevelledUp } from "../Actions/SkillsStateActions";
 import { GetItemFromNode } from "../ItemRepo";
 
 export const TickSystem = () => {
@@ -47,6 +48,12 @@ export const TickSystem = () => {
 const RewardBroker = (activity, params) => {
     switch(activity) {
         case "Gathering":
+            let tile = store.getState().ExplorationState.selectedTile.gatheringNodes[params.outerArrayIndex][params.arrayIndex];
+            switch(tile.type) {
+                case "Woodcutting": store.dispatch(ApplyWoodcuttingXp(tile.XpReward)); break;
+                case "Mining": store.dispatch(ApplyMiningXp(tile.XpReward)); break;
+                default: console.log("couldnt apply a gathering reward in rewardbroker with tile: ", tile)
+            }
             let item = GetItemFromNode(params.name);
             return store.dispatch(AddItem(item));
     }

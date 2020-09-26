@@ -10,7 +10,7 @@ import Exploration from "./Components/Exploration";
 import Gathering from "./Components/Gathering";
 import ActivityProgressDisplay from "./Components/SubComponents/ActivityProgressDisplay";
 import { connect } from "react-redux";
-import "./styles/base.scss";
+import "./styles/base.scss"
 
 const App = () => {
     return (

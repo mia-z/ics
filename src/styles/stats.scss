@@ -1,6 +1,86 @@
-.info-box {
-    background-color: whitesmoke;
-    box-shadow: 0px 10px 50px -20px rgba(59,59,59,1);
-    margin: 10px 15px;
-    padding: 0 15px;
+@import "vars";
+
+.skill-progress-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .skill-progress-box {
+        display: flex;
+        flex-direction: row;
+        background-color: $flat-blue-1;
+        box-shadow: 0 10px 50px -20px rgba(59,59,59,1);
+        margin: 10px 15px 0 15px;
+        border: 2px solid $flat-blue-3;
+        border-radius: 2px;
+
+        & * {
+            font-family: $monster-rat;
+            color: $whitish;
+        }
+
+        .name-section {
+            width: 20%;
+            display: flex;
+            align-items: center;
+
+            .skill-name {
+                border-right: 2px solid $flat-blue-3;
+                border-bottom-right-radius: 2px;
+                text-align: center;
+                padding: 0 5px;
+                background-color: $flat-blue-2;
+            }
+        }
+
+        .level-section {
+            width: 5%;
+            display: flex;
+            align-items: center;
+
+            .skill-level {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        .xp-section {
+            width: 20%;
+            display: flex;
+            align-items: center;
+
+            .skill-xp {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    }
+
+    .progress-section {
+        padding: 0 5px;
+        width: 100%;
+
+        .skill-progress {
+            position: relative;
+            margin: 0 auto;
+            padding: 0 10px;
+            width: 75%;
+            background-color: $light-grey;
+            border: 2px solid $flat-blue-3;
+            border-top: none;
+            border-bottom-right-radius: 2px;
+            border-bottom-left-radius: 2px;
+        }
+
+        .skill-progress-text {
+            position: absolute;
+            text-align: center;
+            left: 50%;
+            transform: translate(-50%);
+            background-color: $whitish;
+            padding: 0 5px;
+            border-left: 2px solid black;
+            border-right: 2px solid black;
+        }
+    }
 }

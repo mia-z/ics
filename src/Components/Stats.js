@@ -1,21 +1,23 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { Col, Row, Container, Button } from "react-bootstrap";
+import { Line } from "rc-progress";
 import "../styles/stats.scss";
+import {SkillProgressComponent} from "./SubComponents/SkillProgressComponent";
 
 const mapStateToProps = (state) => { 
     return { 
-        exploreStats: state.GlobalState.exploreStats,
-        user: state.GlobalState.user
+        mining: state.Skills.Mining,
+        woodcutting: state.Skills.Woodcutting
     }
 }
 
-export const Stats = ({user, exploreStats}) => { //This can probably updated or automated in the future
+export const Stats = ({mining, woodcutting}) => {
     return(
-        <>
-
-        </>
+        <div className={"game-view-container"}>
+            <SkillProgressComponent skill={mining}/>
+            <SkillProgressComponent skill={woodcutting}/>
+        </div>
     );
 }
 
-export default connect(mapStateToProps)(Stats);
+export default connect(mapStateToProps, null)(Stats);

@@ -10,8 +10,6 @@ const mapStateToProps = (state) => {
 }
 
 const Node = ({nodeProps, index, params, tile, handleClick, outerArrayIndex}) => {
-    const alert = useAlert();
-
     const GetIcon = (type) => {
         switch (type) {
             case "Mining": return `${process.env.PUBLIC_URL}/Assets/OreRock.png`;
@@ -30,7 +28,7 @@ const Node = ({nodeProps, index, params, tile, handleClick, outerArrayIndex}) =>
             : () => handleClick(nodeProps.name, index, nodeProps.resetTick, outerArrayIndex);
 
     return(
-        <div className={`interactable-item ${isActive()} ${isDepleted()}`}
+        <div className={`node-item ${isActive()} ${isDepleted()}`}
              style={{background: `url("${process.env.PUBLIC_URL}/Assets/${tile.biome}.svg") no-repeat`}}
              onClick={ClickDelegate()}
             >

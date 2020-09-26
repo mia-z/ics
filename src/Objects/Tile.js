@@ -6,12 +6,12 @@ export class Tile {
         this.state = state;
         this.x = x;
         this.y = y;
-        this.biome = SetBiome(random());
+        this.biome = SetBiome();
         this.gatheringNodes = GenerateNodes(this.biome);
     }
 }
 
-const SetBiome = (rand) => {
+const SetBiome = (rand = random()) => {
         if (rand > 50) return "Grassland";
         else if (rand <= 50 && rand > 25) return "Woodland";
         else if (rand <= 25 && rand > 15) return "Tundra";
@@ -19,13 +19,13 @@ const SetBiome = (rand) => {
         else return "Celestial";
 }
 
-const GenerateNodes = (biome) => {
+const GenerateNodes = (biome, r = random()) => {
     let treesToUse;
     let oresToUse;
 
     let returnList = [];
 
-    let rand = random();
+    let rand = r;
 
     switch (biome) {
         case "Grassland":
