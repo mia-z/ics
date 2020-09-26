@@ -23,8 +23,12 @@
     "react-game-engine": "^1.0.0",
     "react-parallax-mousemove": "^1.1.0",
     "react-redux": "^7.2.0",
+    "react-redux-toasts": "^1.0.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1",
+    "react-scripts": "^3.4.3",
+    "react-spring": "^8.0.27",
+    "react-toastify": "^6.0.8",
+    "react-toastify-redux": "^1.0.0-rc.2",
     "react-tooltip": "^4.2.7",
     "reactstrap": "^8.4.1",
     "redux": "^4.0.5",
@@ -32,6 +36,7 @@
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.2",
     "styled-components": "^5.1.1",
+    "toasted-notes": "^3.2.0",
     "url-loader": "^4.1.0"
   },
   "scripts": {

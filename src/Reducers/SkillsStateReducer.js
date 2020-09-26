@@ -17,25 +17,25 @@ export const SkillsStateReducer = (state = initialState, action) => {
         case types.APPLY_WOODCUTTING_XP:
             if (DidLevelUp(state.Woodcutting.level, state.Woodcutting.xp + action.xp))
                 return {...state,
-                    Woodcutting: {level: state.Woodcutting.level + 1, xp: state.Woodcutting.xp +action.xp},
+                    Woodcutting: {...state.Woodcutting, level: state.Woodcutting.level + 1, xp: state.Woodcutting.xp +action.xp},
                     DidLevelUp: true,
                     SkillsLevelledUpThisTurn: [...state.SkillsLevelledUpThisTurn, { skill: "Woodcutting", newLevel:state.Woodcutting.level + 1 }]
                 };
             else
                 return {...state,
-                    Woodcutting: {level: state.Woodcutting.level, xp: state.Woodcutting.xp + action.xp},
+                    Woodcutting: {...state.Woodcutting, level: state.Woodcutting.level, xp: state.Woodcutting.xp + action.xp},
                 };
 
         case types.APPLY_MINING_XP:
             if (DidLevelUp(state.Mining.level, state.Mining.xp + action.xp))
                 return {...state,
-                    Mining: {level: state.Mining.level + 1, xp: state.Mining.xp + action.xp},
+                    Mining: {...state.Mining, level: state.Mining.level + 1, xp: state.Mining.xp + action.xp},
                     DidLevelUp: true,
                     SkillsLevelledUpThisTurn: [...state.SkillsLevelledUpThisTurn, { skill: "Mining", newLevel:state.Mining.level + 1 }]
                 };
             else
                 return {...state,
-                    Mining: {level: state.Mining.level, xp: state.Mining.xp + action.xp},
+                    Mining: {...state.Mining, level: state.Mining.level, xp: state.Mining.xp + action.xp},
                 };
 
         case types.RESET_HAS_LEVELLED_UP:
