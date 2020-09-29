@@ -1,7 +1,21 @@
 import * as types from "../Actions/InventoryActionTypes";
+import { GetItemById } from "../ItemRepo";
 
 const initialState = {
-    Items: []
+    Items: [
+        // { Item: GetItemById(0), Amount: 5 },
+        // { Item: GetItemById(1), Amount: 5 },
+        // { Item: GetItemById(2), Amount: 5 },
+        // { Item: GetItemById(3), Amount: 5 },
+        // { Item: GetItemById(4), Amount: 5 },
+        // { Item: GetItemById(5), Amount: 5 },
+        // { Item: GetItemById(6), Amount: 5 },
+        // { Item: GetItemById(7), Amount: 5 },
+        // { Item: GetItemById(8), Amount: 5 },
+        // { Item: GetItemById(9), Amount: 5 },
+        // { Item: GetItemById(10), Amount: 5 },
+        // { Item: GetItemById(11), Amount: 5 },
+    ]
 }
 
 export const InventoryReducer = (state = initialState, action) => {

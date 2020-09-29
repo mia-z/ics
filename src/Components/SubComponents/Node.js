@@ -10,6 +10,7 @@ const mapStateToProps = (state) => {
 }
 
 const Node = ({nodeProps, index, params, tile, handleClick, outerArrayIndex}) => {
+    const alert = useAlert();
     const GetIcon = (type) => {
         switch (type) {
             case "Mining": return `${process.env.PUBLIC_URL}/Assets/OreRock.png`;

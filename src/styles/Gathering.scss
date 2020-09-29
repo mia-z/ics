@@ -12,15 +12,20 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     background-color: $color;
     padding: 5px 15px;
+
+
 
     .node-container-title-text {
         text-align: left;
     }
 
     .node-container-check {
-        /*hello*/
+        & label {
+            margin-bottom: 0;
+        }
     }
 }
 
@@ -102,7 +107,7 @@
 
 
 .woodcutting-title {
-    @include node-container-title($flat-green-1)
+    @include node-container-title($flat-green-1);
 }
 
 .woodcutting-node-container {

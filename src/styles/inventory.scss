@@ -1,0 +1,109 @@
+@import "vars";
+
+.inventory-mouseover {
+    p {
+        color: whitesmoke;
+        margin-bottom: 0;
+        font-size: 0.8rem;
+    }
+}
+
+.inventory-container {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 10px 5px;
+    justify-content: space-between;
+    position: relative;
+
+    .inventory-stats {
+        display: flex;
+        flex-direction: column;
+        width: 49%;
+
+        & > div {
+            padding: 5px 15px;
+        }
+
+        .inventory-stats-title {
+            background-color: $flat-green-2;
+            text-align: left;
+        }
+
+        .inventory-stats-content {
+            background-color: $flat-green-1;
+        }
+    }
+
+    .inventory-equipment {
+        display: flex;
+        flex-direction: column;
+        width: 49%;
+
+        & > div {
+            padding: 5px 15px;
+        }
+
+        .inventory-equipment-title {
+            background-color: $flat-blue-2;
+            text-align: left;
+        }
+
+        .inventory-equipment-content {
+            background-color: $flat-blue-1;
+        }
+    }
+
+    .inventory-bag {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 10px;
+        position: relative;
+
+        & > div {
+            padding: 5px 15px;
+        }
+
+        .inventory-bag-title {
+            background-color: $flat-orange-2;
+            text-align: left;
+        }
+
+        .inventory-bag-content {
+            display: flex;
+            flex-flow: row wrap;
+            background-color: $flat-orange-1;
+            justify-content: space-between;
+
+            .inventory-tile {
+                width: 11%;
+                height: 80px;
+                display: flex;
+                flex-direction: column;
+                background-color: $flat-asbestos;
+                margin: 5px;
+                border-radius: 2px;
+                box-shadow: 0px 0px 15px 0px rgba(140,140,140,0.5);
+
+                * {
+                    pointer-events: none;
+                    user-select: none;
+                }
+
+                &:last-child {
+                    margin-right: auto;
+                }
+
+                .item-amount {
+                    text-align: center;
+                    font-size: 0.8rem;
+                    color: whitesmoke;
+                }
+                img.item-img {
+                    margin: 2px auto 0 auto;
+                    width: 55px;
+                }
+            }
+        }
+    }
+}
