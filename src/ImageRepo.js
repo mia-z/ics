@@ -27,6 +27,13 @@ export const GetSvg = (array) => {
     return imageArray;
 }
 
+export const GetItemIcon = name => {
+    return new Image(
+        name,
+        `${process.env.PUBLIC_URL}/Assets/ItemIcons/${name}.svg`
+    )
+}
+
 class Image {
     constructor(name, url) {
         this.ImageName = name;
