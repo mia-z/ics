@@ -25,7 +25,7 @@
     "react-redux": "^7.2.0",
     "react-redux-toasts": "^1.0.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.3",
+    "react-scripts": "^5.0.1",
     "react-spring": "^8.0.27",
     "react-toastify": "^6.0.8",
     "react-toastify-redux": "^1.0.0-rc.2",
